@@ -1,12 +1,8 @@
 import React from 'react';
 
-function Button({ children, ...delegated }) {
+function Button({ className = '', children, ...delegated }) {
   return (
-    <button
-      style={{ backgroundColor: 'transparent', border: 'none' }}
-      {...delegated}
-      className='button'
-    >
+    <button className={`button ${className}`} {...delegated}>
       {children}
     </button>
   );

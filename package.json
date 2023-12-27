@@ -1,16 +1,19 @@
 {
+  "homepage": "https://galangeracharles17.github.io/project-Todo",
   "name": "project-todo",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "parcel public/index.html",
-    "build": "parcel build public/index.html",
+    "build": "parcel build public/index.html --public-url https://galangeracharles17.github.io/project-Todo/",
     "new-component": "new-component"
   },
   "author": "Charles Galangera",
   "license": "ISC",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.10.3",
+    "gh-pages": "^6.1.1",
     "parcel": "^2.10.3",
     "process": "^0.11.10"
   },

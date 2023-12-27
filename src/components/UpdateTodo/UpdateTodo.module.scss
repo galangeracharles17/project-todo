@@ -1,40 +1,35 @@
 @use '../../styles.scss';
 
-.todoLists {
+.updateForm {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   gap: 20px;
   padding: 8px;
-
   @media only screen and (max-width: 478px) {
     gap: 10px;
   }
 }
 
-.todo {
+.inputUpdate {
   font-family: styles.$font-family;
   font-size: styles.$font-size;
   letter-spacing: styles.$letter-spacing;
   line-height: 2;
-  padding: 0 8px;
-
+  border: none;
+  outline: none;
   border-bottom: 1px solid styles.$secondary-color;
   overflow: hidden;
   white-space: nowrap;
   flex: 2;
-
+  padding: 0 8px;
   @media only screen and (max-width: 468px) {
     font-size: styles.$font-size-small;
   }
 }
 
-.completed {
-  background-color: rgb(156, 252, 156);
-  border: none;
-  border-radius: 8px;
-  opacity: 0.7;
-}
-
-.buttonsWrapper {
+.buttonWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,4 +41,14 @@
     width: 120px;
     gap: 8px;
   }
+}
+
+.buttonUpdate {
+  padding: 0 8px;
+  text-transform: capitalize;
+  font-weight: 400;
+  background-color: #9747ff;
+  width: min-content;
+  border-radius: 8px;
+  color: white;
 }

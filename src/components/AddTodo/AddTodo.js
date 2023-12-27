@@ -5,6 +5,11 @@ import AddIcon from '../../Assets/add-btn.png';
 
 function AddTodo({ handleAddTodo }) {
   const [todoValue, setTodoValue] = React.useState('');
+  const inputRef = React.useRef();
+
+  React.useEffect(() => {
+    inputRef.current.focus();
+  });
 
   const handleForm = (event) => {
     event.preventDefault();
@@ -24,6 +29,7 @@ function AddTodo({ handleAddTodo }) {
       onSubmit={handleForm}
     >
       <input
+        ref={inputRef}
         required
         type='text'
         value={todoValue}

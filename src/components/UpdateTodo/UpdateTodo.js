@@ -1,9 +1,16 @@
 import React from 'react';
 import Button from '../Button';
+import styles from './UpdateTodo.module.scss';
 
 function UpdateTodo({ id, handleUpdateTodo, todo }) {
   const [value, setValue] = React.useState('');
-  console.log(todo);
+  const inputRef = React.useRef();
+
+  // To focus whenever the input appears
+  React.useEffect(() => {
+    inputRef.current.focus();
+  });
+
   const handleForm = (event) => {
     event.preventDefault();
 
@@ -13,24 +20,20 @@ function UpdateTodo({ id, handleUpdateTodo, todo }) {
   };
 
   return (
-    <form
-      style={{ display: 'flex', gap: '8px', padding: '8px' }}
-      onSubmit={handleForm}
-    >
+    <form className={styles.updateForm} onSubmit={handleForm}>
       <input
+        ref={inputRef}
+        className={styles.inputUpdate}
         type='text'
-        style={{
-          flex: '1',
-          border: 'none',
-          borderBottom: '1px solid black',
-          outline: 'none',
-        }}
         value={value}
+        placeholder={todo}
         onChange={(event) => setValue(event.target.value)}
       />
-      <Button style={{ width: '100px' }}>
-        {value === '' ? 'cancel' : 'Save'}
-      </Button>
+      <div className={styles.buttonWrapper}>
+        <Button className={styles.buttonUpdate}>
+          {value === '' ? 'cancel' : 'Save'}
+        </Button>
+      </div>
     </form>
   );
 }

@@ -6,8 +6,16 @@ import Button from '../Button';
 
 import CompleteIcon from '../../Assets/complete-btn.png';
 import UpdateIcon from '../../Assets/update-btn.png';
+import DeleteIcon from '../../Assets/delete-btn.png';
 
-function TodoLists({ todo, id, isComplete, handleCompleteTodo, toggleUpdate }) {
+function TodoLists({
+  todo,
+  id,
+  isComplete,
+  handleCompleteTodo,
+  toggleUpdate,
+  handleDeleteTodo,
+}) {
   return (
     <>
       <div className={styles.todoLists}>
@@ -19,8 +27,8 @@ function TodoLists({ todo, id, isComplete, handleCompleteTodo, toggleUpdate }) {
           <Button onClick={() => toggleUpdate(id)}>
             <img src={UpdateIcon} alt='completed button' />
           </Button>
-          <Button>
-            <img src={UpdateIcon} alt='completed button' />
+          <Button onClick={() => handleDeleteTodo(id)}>
+            <img src={DeleteIcon} alt='completed button' />
           </Button>
         </div>
       </div>

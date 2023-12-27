@@ -10,10 +10,11 @@ function DeleteTodo() {
   const handleDelete = React.useCallback(() => {
     setIsDelete((currentValue) => !currentValue);
   }, []);
+  console.log(isDelete);
 
   return (
     <Button onClick={handleDelete}>
-      <img src={DeleteIcon} alt='completed button' />
+      <img src={DeleteIcon} alt='delete button' />
     </Button>
   );
 }
