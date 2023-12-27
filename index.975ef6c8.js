@@ -27530,12 +27530,16 @@ function ToDoApp() {
             } : todo);
         setTodos(newTodo);
     };
-    const handleUpdateTodo = (todoID, newValue)=>{
-        const newTodos = todos.map((todo)=>todo.id === todoID ? {
+    const handleUpdateTodo = (todoId, newValue)=>{
+        const newTodos = todos.map((todo)=>todo.id === todoId ? {
                 ...todo,
                 todo: newValue,
                 isEdited: !todo.isEdited
             } : todo);
+        setTodos(newTodos);
+    };
+    const handleDeleteTodo = (todoId)=>{
+        const newTodos = todos.filter((todo)=>todo.id !== todoId);
         setTodos(newTodos);
     };
     console.log(todos);
@@ -27546,48 +27550,59 @@ function ToDoApp() {
                 children: "Welcome! Todo"
             }, void 0, false, {
                 fileName: "src/components/ToDoApp/ToDoApp.js",
-                lineNumber: 58,
+                lineNumber: 65,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addTodoDefault.default), {
                 handleAddTodo: handleAddTodo
             }, void 0, false, {
                 fileName: "src/components/ToDoApp/ToDoApp.js",
-                lineNumber: 59,
+                lineNumber: 66,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "toDoListWrappers",
                 children: todos.map(({ todo, id, isComplete, isEdited })=>{
-                    return !isEdited ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _todoListsDefault.default), {
-                        id: id,
-                        todo: todo,
-                        isComplete: isComplete,
-                        handleCompleteTodo: handleCompleteTodo,
-                        toggleUpdate: toggleUpdate
-                    }, id, false, {
+                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
+                        children: [
+                            !isEdited && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _todoListsDefault.default), {
+                                //Todo Id
+                                id: id,
+                                todo: todo,
+                                isComplete: isComplete,
+                                handleCompleteTodo: handleCompleteTodo,
+                                toggleUpdate: toggleUpdate,
+                                handleDeleteTodo: handleDeleteTodo
+                            }, void 0, false, {
+                                fileName: "src/components/ToDoApp/ToDoApp.js",
+                                lineNumber: 72,
+                                columnNumber: 17
+                            }, this),
+                            isEdited && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateTodoDefault.default), {
+                                id: id,
+                                handleUpdateTodo: handleUpdateTodo,
+                                todo: todo
+                            }, void 0, false, {
+                                fileName: "src/components/ToDoApp/ToDoApp.js",
+                                lineNumber: 83,
+                                columnNumber: 17
+                            }, this)
+                        ]
+                    }, id, true, {
                         fileName: "src/components/ToDoApp/ToDoApp.js",
-                        lineNumber: 63,
-                        columnNumber: 13
-                    }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateTodoDefault.default), {
-                        id: id,
-                        handleUpdateTodo: handleUpdateTodo,
-                        todo: todo
-                    }, id, false, {
-                        fileName: "src/components/ToDoApp/ToDoApp.js",
-                        lineNumber: 72,
+                        lineNumber: 70,
                         columnNumber: 13
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "src/components/ToDoApp/ToDoApp.js",
-                lineNumber: 60,
+                lineNumber: 67,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/ToDoApp/ToDoApp.js",
-        lineNumber: 57,
+        lineNumber: 64,
         columnNumber: 5
     }, this);
 }
@@ -27632,6 +27647,10 @@ var _s = $RefreshSig$();
 function AddTodo({ handleAddTodo }) {
     _s();
     const [todoValue, setTodoValue] = (0, _reactDefault.default).useState("");
+    const inputRef = (0, _reactDefault.default).useRef();
+    (0, _reactDefault.default).useEffect(()=>{
+        inputRef.current.focus();
+    });
     const handleForm = (event)=>{
         event.preventDefault();
         handleAddTodo(todoValue);
@@ -27647,6 +27666,7 @@ function AddTodo({ handleAddTodo }) {
         onSubmit: handleForm,
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                ref: inputRef,
                 required: true,
                 type: "text",
                 value: todoValue,
@@ -27656,7 +27676,7 @@ function AddTodo({ handleAddTodo }) {
                 }
             }, void 0, false, {
                 fileName: "src/components/AddTodo/AddTodo.js",
-                lineNumber: 26,
+                lineNumber: 31,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
@@ -27665,22 +27685,22 @@ function AddTodo({ handleAddTodo }) {
                     alt: "add button"
                 }, void 0, false, {
                     fileName: "src/components/AddTodo/AddTodo.js",
-                    lineNumber: 36,
+                    lineNumber: 42,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/AddTodo/AddTodo.js",
-                lineNumber: 35,
+                lineNumber: 41,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/AddTodo/AddTodo.js",
-        lineNumber: 17,
+        lineNumber: 22,
         columnNumber: 5
     }, this);
 }
-_s(AddTodo, "RZD8SGQNQ5MsksQOyuzbxXA+u0s=");
+_s(AddTodo, "0CitEzA9i55G/4mFcdPwefM/knQ=");
 _c = AddTodo;
 exports.default = AddTodo;
 var _c;
@@ -27719,14 +27739,10 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-function Button({ children, ...delegated }) {
+function Button({ className = "", children, ...delegated }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-        style: {
-            backgroundColor: "transparent",
-            border: "none"
-        },
+        className: `button ${className}`,
         ...delegated,
-        className: "button",
         children: children
     }, void 0, false, {
         fileName: "src/components/Button/Button.js",
@@ -27775,7 +27791,9 @@ var _completeBtnPng = require("../../Assets/complete-btn.png");
 var _completeBtnPngDefault = parcelHelpers.interopDefault(_completeBtnPng);
 var _updateBtnPng = require("../../Assets/update-btn.png");
 var _updateBtnPngDefault = parcelHelpers.interopDefault(_updateBtnPng);
-function TodoLists({ todo, id, isComplete, handleCompleteTodo, toggleUpdate }) {
+var _deleteBtnPng = require("../../Assets/delete-btn.png");
+var _deleteBtnPngDefault = parcelHelpers.interopDefault(_deleteBtnPng);
+function TodoLists({ todo, id, isComplete, handleCompleteTodo, toggleUpdate, handleDeleteTodo }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: (0, _todoListsModuleScssDefault.default).todoLists,
@@ -27785,7 +27803,7 @@ function TodoLists({ todo, id, isComplete, handleCompleteTodo, toggleUpdate }) {
                     children: todo
                 }, void 0, false, {
                     fileName: "src/components/TodoLists/TodoLists.js",
-                    lineNumber: 14,
+                    lineNumber: 22,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27798,12 +27816,12 @@ function TodoLists({ todo, id, isComplete, handleCompleteTodo, toggleUpdate }) {
                                 alt: "completed button"
                             }, void 0, false, {
                                 fileName: "src/components/TodoLists/TodoLists.js",
-                                lineNumber: 17,
+                                lineNumber: 25,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "src/components/TodoLists/TodoLists.js",
-                            lineNumber: 16,
+                            lineNumber: 24,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
@@ -27813,38 +27831,39 @@ function TodoLists({ todo, id, isComplete, handleCompleteTodo, toggleUpdate }) {
                                 alt: "completed button"
                             }, void 0, false, {
                                 fileName: "src/components/TodoLists/TodoLists.js",
-                                lineNumber: 20,
+                                lineNumber: 28,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "src/components/TodoLists/TodoLists.js",
-                            lineNumber: 19,
+                            lineNumber: 27,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                            onClick: ()=>handleDeleteTodo(id),
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                                src: (0, _updateBtnPngDefault.default),
+                                src: (0, _deleteBtnPngDefault.default),
                                 alt: "completed button"
                             }, void 0, false, {
                                 fileName: "src/components/TodoLists/TodoLists.js",
-                                lineNumber: 23,
+                                lineNumber: 31,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "src/components/TodoLists/TodoLists.js",
-                            lineNumber: 22,
+                            lineNumber: 30,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/TodoLists/TodoLists.js",
-                    lineNumber: 15,
+                    lineNumber: 23,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/TodoLists/TodoLists.js",
-            lineNumber: 13,
+            lineNumber: 21,
             columnNumber: 7
         }, this)
     }, void 0, false);
@@ -27856,7 +27875,7 @@ function IsTodoCompleted({ isComplete, children }) {
         children: children
     }, void 0, false, {
         fileName: "src/components/TodoLists/TodoLists.js",
-        lineNumber: 33,
+        lineNumber: 41,
         columnNumber: 5
     }, this);
 }
@@ -27871,7 +27890,7 @@ $RefreshReg$(_c1, "IsTodoCompleted");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./TodoLists.module.scss":"1xxbg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../Button":"bNbfl","../../Assets/complete-btn.png":"duDfh","../../Assets/update-btn.png":"lTYiu"}],"1xxbg":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./TodoLists.module.scss":"1xxbg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../Button":"bNbfl","../../Assets/complete-btn.png":"duDfh","../../Assets/update-btn.png":"lTYiu","../../Assets/delete-btn.png":"22vE6"}],"1xxbg":[function(require,module,exports) {
 module.exports["button"] = `OJ7ypa_button`;
 module.exports["buttonsWrapper"] = `OJ7ypa_buttonsWrapper`;
 module.exports["completed"] = `OJ7ypa_completed`;
@@ -27888,7 +27907,10 @@ module.exports = require("e316e8af6fdcedd").getBundleURL("bLxZJ") + "complete-bt
 },{"e316e8af6fdcedd":"lgJ39"}],"lTYiu":[function(require,module,exports) {
 module.exports = require("d7c859e0ef234b0f").getBundleURL("bLxZJ") + "update-btn.b6f5e150.png" + "?" + Date.now();
 
-},{"d7c859e0ef234b0f":"lgJ39"}],"3AIRO":[function(require,module,exports) {
+},{"d7c859e0ef234b0f":"lgJ39"}],"22vE6":[function(require,module,exports) {
+module.exports = require("ca134264bee7b697").getBundleURL("bLxZJ") + "delete-btn.e0fb9648.png" + "?" + Date.now();
+
+},{"ca134264bee7b697":"lgJ39"}],"3AIRO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _updateTodoDefault.default));
@@ -27910,57 +27932,61 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _button = require("../Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
+var _updateTodoModuleScss = require("./UpdateTodo.module.scss");
+var _updateTodoModuleScssDefault = parcelHelpers.interopDefault(_updateTodoModuleScss);
 var _s = $RefreshSig$();
 function UpdateTodo({ id, handleUpdateTodo, todo }) {
     _s();
     const [value, setValue] = (0, _reactDefault.default).useState("");
-    console.log(todo);
+    const inputRef = (0, _reactDefault.default).useRef();
+    // To focus whenever the input appears
+    (0, _reactDefault.default).useEffect(()=>{
+        inputRef.current.focus();
+    });
     const handleForm = (event)=>{
         event.preventDefault();
         const newValue = value ? value : todo;
         handleUpdateTodo(id, newValue);
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
-        style: {
-            display: "flex",
-            gap: "8px",
-            padding: "8px"
-        },
+        className: (0, _updateTodoModuleScssDefault.default).updateForm,
         onSubmit: handleForm,
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                ref: inputRef,
+                className: (0, _updateTodoModuleScssDefault.default).inputUpdate,
                 type: "text",
-                style: {
-                    flex: "1",
-                    border: "none",
-                    borderBottom: "1px solid black",
-                    outline: "none"
-                },
                 value: value,
+                placeholder: todo,
                 onChange: (event)=>setValue(event.target.value)
             }, void 0, false, {
                 fileName: "src/components/UpdateTodo/UpdateTodo.js",
-                lineNumber: 20,
+                lineNumber: 24,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
-                style: {
-                    width: "100px"
-                },
-                children: value === "" ? "cancel" : "Save"
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: (0, _updateTodoModuleScssDefault.default).buttonWrapper,
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                    className: (0, _updateTodoModuleScssDefault.default).buttonUpdate,
+                    children: value === "" ? "cancel" : "Save"
+                }, void 0, false, {
+                    fileName: "src/components/UpdateTodo/UpdateTodo.js",
+                    lineNumber: 33,
+                    columnNumber: 9
+                }, this)
             }, void 0, false, {
                 fileName: "src/components/UpdateTodo/UpdateTodo.js",
-                lineNumber: 31,
+                lineNumber: 32,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/UpdateTodo/UpdateTodo.js",
-        lineNumber: 16,
+        lineNumber: 23,
         columnNumber: 5
     }, this);
 }
-_s(UpdateTodo, "A2PXPeq8TepW328gUMM4+o8Xryo=");
+_s(UpdateTodo, "wKdJ8ll/af5Cn92Tyq5Aih0c9P0=");
 _c = UpdateTodo;
 exports.default = UpdateTodo;
 var _c;
@@ -27971,6 +27997,17 @@ $RefreshReg$(_c, "UpdateTodo");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../Button":"bNbfl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["icZzK","1xC6H","8lqZg"], "8lqZg", "parcelRequire8c27")
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../Button":"bNbfl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./UpdateTodo.module.scss":"ccEE1"}],"ccEE1":[function(require,module,exports) {
+module.exports["button"] = `hrHOsG_button`;
+module.exports["buttonUpdate"] = `hrHOsG_buttonUpdate`;
+module.exports["buttonWrapper"] = `hrHOsG_buttonWrapper`;
+module.exports["inputUpdate"] = `hrHOsG_inputUpdate`;
+module.exports["nav-bar"] = `hrHOsG_nav-bar`;
+module.exports["toDoListWrappers"] = `hrHOsG_toDoListWrappers`;
+module.exports["todo-card"] = `hrHOsG_todo-card`;
+module.exports["todo-wrapper"] = `hrHOsG_todo-wrapper`;
+module.exports["updateForm"] = `hrHOsG_updateForm`;
+
+},{}]},["icZzK","1xC6H","8lqZg"], "8lqZg", "parcelRequire8c27")
 
 //# sourceMappingURL=index.975ef6c8.js.map
