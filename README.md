@@ -6,15 +6,14 @@ This project was created from scratch using ReactJs and Javascript with the help
 
 The actual design was also from scratch using figma and material icons.
 
-NodeJS keypoints
+NPM & Parcel keypoints
 
-> Node allows you to install packages from diffrence resources
-> Node checks if the app was successfully built
-> Node will also let your application run on your local machine
+> NPM, the package manager for Node.js, allows you to easily install packages from different sources, including the npm registry."
+> Parcel bundled or minify your application and responsible for the build of your app
 
 Git keypoints
 
-> Is version control that let's you track your progress
+> Is a version control that let's you track your progress
 > Allows to keep in sync with your github repositories
 
 ReactJS keypoints

@@ -36,6 +36,7 @@ body {
   min-height: 75px;
   display: flex;
   align-items: center;
+  padding: 0 20px;
 
   img {
     width: 50px;
@@ -51,7 +52,7 @@ body {
   margin: 0 auto;
   min-height: 250px;
   height: 100%;
-  max-width: min(730px, 90%);
+  max-width: min(730px, 100%);
 }
 
 .todo-card {
