@@ -27557,7 +27557,7 @@ function ToDoApp() {
         console.log(`Toggled isDeleted for todo with id: ${todoId}`);
         setTodos(newTodos);
     };
-    console.log(todos);
+    // console.log(todos);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: "todo-card",
