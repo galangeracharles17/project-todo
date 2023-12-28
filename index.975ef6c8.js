@@ -27492,6 +27492,8 @@ var _todoLists = require("../TodoLists");
 var _todoListsDefault = parcelHelpers.interopDefault(_todoLists);
 var _updateTodo = require("../UpdateTodo");
 var _updateTodoDefault = parcelHelpers.interopDefault(_updateTodo);
+var _deleteTodo = require("../DeleteTodo/DeleteTodo");
+var _deleteTodoDefault = parcelHelpers.interopDefault(_deleteTodo);
 var _s = $RefreshSig$();
 function ToDoApp() {
     _s();
@@ -27499,16 +27501,18 @@ function ToDoApp() {
         {
             id: crypto.randomUUID(),
             todo: "testToDo",
-            isComplete: false,
-            isEdited: false
+            isCompleted: false,
+            isEdited: false,
+            isDeleted: false
         }
     ]);
     const handleAddTodo = (todoItem)=>{
         const AddTodo = {
             id: crypto.randomUUID(),
             todo: todoItem,
-            isComplete: false,
-            isEdited: false
+            isCompleted: false,
+            isEdited: false,
+            isDeleted: false
         };
         const nextTodo = [
             AddTodo,
@@ -27519,7 +27523,7 @@ function ToDoApp() {
     const handleCompleteTodo = (todoId)=>{
         const newTodo = todos.map((todo)=>todo.id === todoId ? {
                 ...todo,
-                isComplete: !todo.isComplete
+                isCompleted: !todo.isCompleted
             } : todo);
         setTodos(newTodo);
     };
@@ -27538,75 +27542,96 @@ function ToDoApp() {
             } : todo);
         setTodos(newTodos);
     };
+    const toggleDelete = (todoId)=>{
+        const newTodo = todos.map((todo)=>todo.id === todoId ? {
+                ...todo,
+                isDeleted: !todo.isDeleted
+            } : todo);
+        setTodos(newTodo);
+    };
     const handleDeleteTodo = (todoId)=>{
-        const newTodos = todos.filter((todo)=>todo.id !== todoId);
+        const newTodos = todos.filter((todo)=>todo.id !== todoId).map((todo)=>todo.id === todoId ? {
+                ...todo,
+                isDeleted: !todo.isDeleted
+            } : todo);
+        console.log(`Toggled isDeleted for todo with id: ${todoId}`);
         setTodos(newTodos);
     };
     console.log(todos);
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "todo-card",
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                children: "Welcome! Todo"
-            }, void 0, false, {
-                fileName: "src/components/ToDoApp/ToDoApp.js",
-                lineNumber: 65,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addTodoDefault.default), {
-                handleAddTodo: handleAddTodo
-            }, void 0, false, {
-                fileName: "src/components/ToDoApp/ToDoApp.js",
-                lineNumber: 66,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "toDoListWrappers",
-                children: todos.map(({ todo, id, isComplete, isEdited })=>{
-                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
-                        children: [
-                            !isEdited && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _todoListsDefault.default), {
-                                //Todo Id
-                                id: id,
-                                todo: todo,
-                                isComplete: isComplete,
-                                handleCompleteTodo: handleCompleteTodo,
-                                toggleUpdate: toggleUpdate,
-                                handleDeleteTodo: handleDeleteTodo
-                            }, void 0, false, {
-                                fileName: "src/components/ToDoApp/ToDoApp.js",
-                                lineNumber: 72,
-                                columnNumber: 17
-                            }, this),
-                            isEdited && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateTodoDefault.default), {
-                                id: id,
-                                handleUpdateTodo: handleUpdateTodo,
-                                todo: todo
-                            }, void 0, false, {
-                                fileName: "src/components/ToDoApp/ToDoApp.js",
-                                lineNumber: 83,
-                                columnNumber: 17
-                            }, this)
-                        ]
-                    }, id, true, {
-                        fileName: "src/components/ToDoApp/ToDoApp.js",
-                        lineNumber: 70,
-                        columnNumber: 13
-                    }, this);
-                })
-            }, void 0, false, {
-                fileName: "src/components/ToDoApp/ToDoApp.js",
-                lineNumber: 67,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/ToDoApp/ToDoApp.js",
-        lineNumber: 64,
-        columnNumber: 5
-    }, this);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "todo-card",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                    children: "Welcome! Todo"
+                }, void 0, false, {
+                    fileName: "src/components/ToDoApp/ToDoApp.js",
+                    lineNumber: 83,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addTodoDefault.default), {
+                    handleAddTodo: handleAddTodo
+                }, void 0, false, {
+                    fileName: "src/components/ToDoApp/ToDoApp.js",
+                    lineNumber: 84,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    className: "toDoListWrappers",
+                    children: todos.map(({ todo, id, isCompleted, isEdited, isDeleted })=>{
+                        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
+                            children: [
+                                !isEdited && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _todoListsDefault.default), {
+                                    id: id,
+                                    todo: todo,
+                                    isCompleted: isCompleted,
+                                    handleCompleteTodo: handleCompleteTodo,
+                                    toggleUpdate: toggleUpdate,
+                                    toggleDelete: toggleDelete
+                                }, void 0, false, {
+                                    fileName: "src/components/ToDoApp/ToDoApp.js",
+                                    lineNumber: 90,
+                                    columnNumber: 19
+                                }, this),
+                                isEdited && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateTodoDefault.default), {
+                                    id: id,
+                                    handleUpdateTodo: handleUpdateTodo,
+                                    todo: todo
+                                }, void 0, false, {
+                                    fileName: "src/components/ToDoApp/ToDoApp.js",
+                                    lineNumber: 100,
+                                    columnNumber: 19
+                                }, this),
+                                isDeleted && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _deleteTodoDefault.default), {
+                                    id: id,
+                                    toggleDelete: toggleDelete,
+                                    handleDeleteTodo: handleDeleteTodo
+                                }, void 0, false, {
+                                    fileName: "src/components/ToDoApp/ToDoApp.js",
+                                    lineNumber: 107,
+                                    columnNumber: 19
+                                }, this)
+                            ]
+                        }, id, true, {
+                            fileName: "src/components/ToDoApp/ToDoApp.js",
+                            lineNumber: 88,
+                            columnNumber: 15
+                        }, this);
+                    })
+                }, void 0, false, {
+                    fileName: "src/components/ToDoApp/ToDoApp.js",
+                    lineNumber: 85,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "src/components/ToDoApp/ToDoApp.js",
+            lineNumber: 82,
+            columnNumber: 7
+        }, this)
+    }, void 0, false);
 }
-_s(ToDoApp, "zV2qLiDmHKshXerW4uspUnZRdNw=");
+_s(ToDoApp, "KH0xkNQjBkORFjmD8p3v1Ap6WI0=");
 _c = ToDoApp;
 exports.default = ToDoApp;
 var _c;
@@ -27617,7 +27642,7 @@ $RefreshReg$(_c, "ToDoApp");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../AddTodo":"lz96Y","../TodoLists":"lfxxG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../UpdateTodo":"3AIRO"}],"lz96Y":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../AddTodo":"lz96Y","../TodoLists":"lfxxG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../UpdateTodo":"3AIRO","../DeleteTodo/DeleteTodo":"a09V6"}],"lz96Y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _addTodoDefault.default));
@@ -27668,6 +27693,8 @@ function AddTodo({ handleAddTodo }) {
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                 ref: inputRef,
                 required: true,
+                pattern: "[A-Za-z0-9]+",
+                title: "Enter a valid word",
                 type: "text",
                 value: todoValue,
                 className: (0, _addTodoModuleScssDefault.default).addInput,
@@ -27685,12 +27712,12 @@ function AddTodo({ handleAddTodo }) {
                     alt: "add button"
                 }, void 0, false, {
                     fileName: "src/components/AddTodo/AddTodo.js",
-                    lineNumber: 42,
+                    lineNumber: 44,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/AddTodo/AddTodo.js",
-                lineNumber: 41,
+                lineNumber: 43,
                 columnNumber: 7
             }, this)
         ]
@@ -27793,13 +27820,13 @@ var _updateBtnPng = require("../../Assets/update-btn.png");
 var _updateBtnPngDefault = parcelHelpers.interopDefault(_updateBtnPng);
 var _deleteBtnPng = require("../../Assets/delete-btn.png");
 var _deleteBtnPngDefault = parcelHelpers.interopDefault(_deleteBtnPng);
-function TodoLists({ todo, id, isComplete, handleCompleteTodo, toggleUpdate, handleDeleteTodo }) {
+function TodoLists({ todo, id, isCompleted, handleCompleteTodo, toggleUpdate, toggleDelete }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: (0, _todoListsModuleScssDefault.default).todoLists,
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(IsTodoCompleted, {
-                    isComplete: isComplete,
+                    isCompleted: isCompleted,
                     children: todo
                 }, void 0, false, {
                     fileName: "src/components/TodoLists/TodoLists.js",
@@ -27840,7 +27867,7 @@ function TodoLists({ todo, id, isComplete, handleCompleteTodo, toggleUpdate, han
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
-                            onClick: ()=>handleDeleteTodo(id),
+                            onClick: ()=>toggleDelete(id),
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
                                 src: (0, _deleteBtnPngDefault.default),
                                 alt: "completed button"
@@ -27869,9 +27896,9 @@ function TodoLists({ todo, id, isComplete, handleCompleteTodo, toggleUpdate, han
     }, void 0, false);
 }
 _c = TodoLists;
-function IsTodoCompleted({ isComplete, children }) {
+function IsTodoCompleted({ isCompleted, children }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-        className: `${(0, _todoListsModuleScssDefault.default).todo} ${isComplete ? (0, _todoListsModuleScssDefault.default).completed : ""}`,
+        className: `${(0, _todoListsModuleScssDefault.default).todo} ${isCompleted ? (0, _todoListsModuleScssDefault.default).completed : ""}`,
         children: children
     }, void 0, false, {
         fileName: "src/components/TodoLists/TodoLists.js",
@@ -27953,6 +27980,8 @@ function UpdateTodo({ id, handleUpdateTodo, todo }) {
         onSubmit: handleForm,
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                pattern: "[A-Za-z0-9]+",
+                title: "Enter a valid word",
                 ref: inputRef,
                 className: (0, _updateTodoModuleScssDefault.default).inputUpdate,
                 type: "text",
@@ -27971,12 +28000,12 @@ function UpdateTodo({ id, handleUpdateTodo, todo }) {
                     children: value === "" ? "cancel" : "Save"
                 }, void 0, false, {
                     fileName: "src/components/UpdateTodo/UpdateTodo.js",
-                    lineNumber: 33,
+                    lineNumber: 35,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/UpdateTodo/UpdateTodo.js",
-                lineNumber: 32,
+                lineNumber: 34,
                 columnNumber: 7
             }, this)
         ]
@@ -27997,7 +28026,7 @@ $RefreshReg$(_c, "UpdateTodo");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../Button":"bNbfl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./UpdateTodo.module.scss":"ccEE1"}],"ccEE1":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../Button":"bNbfl","./UpdateTodo.module.scss":"ccEE1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"ccEE1":[function(require,module,exports) {
 module.exports["button"] = `hrHOsG_button`;
 module.exports["buttonUpdate"] = `hrHOsG_buttonUpdate`;
 module.exports["buttonWrapper"] = `hrHOsG_buttonWrapper`;
@@ -28007,6 +28036,1616 @@ module.exports["toDoListWrappers"] = `hrHOsG_toDoListWrappers`;
 module.exports["todo-card"] = `hrHOsG_todo-card`;
 module.exports["todo-wrapper"] = `hrHOsG_todo-wrapper`;
 module.exports["updateForm"] = `hrHOsG_updateForm`;
+
+},{}],"a09V6":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$8ece = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$8ece.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _deleteTodoModuleScss = require("./DeleteTodo.module.scss");
+var _deleteTodoModuleScssDefault = parcelHelpers.interopDefault(_deleteTodoModuleScss);
+var _modal = require("../Modal");
+var _modalDefault = parcelHelpers.interopDefault(_modal);
+var _button = require("../Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
+function DeleteTodo({ id, toggleDelete, handleDeleteTodo }) {
+    console.log(id);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default), {
+        id: id,
+        toggleDelete: toggleDelete,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                children: "Are you sure?"
+            }, void 0, false, {
+                fileName: "src/components/DeleteTodo/DeleteTodo.js",
+                lineNumber: 9,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: "You want to delete this item?"
+            }, void 0, false, {
+                fileName: "src/components/DeleteTodo/DeleteTodo.js",
+                lineNumber: 10,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: (0, _deleteTodoModuleScssDefault.default).buttonsWrapper,
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                        className: (0, _deleteTodoModuleScssDefault.default).primaryBtn,
+                        onClick: ()=>handleDeleteTodo(id),
+                        children: "Yes"
+                    }, void 0, false, {
+                        fileName: "src/components/DeleteTodo/DeleteTodo.js",
+                        lineNumber: 12,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                        className: (0, _deleteTodoModuleScssDefault.default).secondaryBtn,
+                        onClick: ()=>toggleDelete(id),
+                        children: "No"
+                    }, void 0, false, {
+                        fileName: "src/components/DeleteTodo/DeleteTodo.js",
+                        lineNumber: 18,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/DeleteTodo/DeleteTodo.js",
+                lineNumber: 11,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/DeleteTodo/DeleteTodo.js",
+        lineNumber: 8,
+        columnNumber: 5
+    }, this);
+}
+_c = DeleteTodo;
+exports.default = DeleteTodo;
+var _c;
+$RefreshReg$(_c, "DeleteTodo");
+
+  $parcel$ReactRefreshHelpers$8ece.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../Modal":"9Wwr6","../Button":"bNbfl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./DeleteTodo.module.scss":"9W8g1"}],"9Wwr6":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>(0, _modalDefault.default));
+var _modal = require("./Modal");
+parcelHelpers.exportAll(_modal, exports);
+var _modalDefault = parcelHelpers.interopDefault(_modal);
+
+},{"./Modal":"biIyr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"biIyr":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$0e5d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$0e5d.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _modalModuleScss = require("./Modal.module.scss");
+var _modalModuleScssDefault = parcelHelpers.interopDefault(_modalModuleScss);
+var _reactRemoveScroll = require("react-remove-scroll");
+var _s = $RefreshSig$();
+function Modal({ children, id, toggleDelete }) {
+    _s();
+    (0, _reactDefault.default).useEffect(()=>{
+        const handleKeydown = (event)=>{
+            if (event.code === "Escape") toggleDelete(id);
+        };
+        window.addEventListener("keydown", handleKeydown);
+        return ()=>window.removeEventListener("keydown", handleKeydown);
+    }, [
+        id,
+        toggleDelete
+    ]);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRemoveScroll.RemoveScroll), {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: (0, _modalModuleScssDefault.default).modalWrapper,
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    className: (0, _modalModuleScssDefault.default).backdrop,
+                    onClick: ()=>{
+                        toggleDelete(id);
+                    }
+                }, void 0, false, {
+                    fileName: "src/components/Modal/Modal.js",
+                    lineNumber: 20,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    className: (0, _modalModuleScssDefault.default).dialog,
+                    children: children
+                }, void 0, false, {
+                    fileName: "src/components/Modal/Modal.js",
+                    lineNumber: 26,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "src/components/Modal/Modal.js",
+            lineNumber: 19,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "src/components/Modal/Modal.js",
+        lineNumber: 18,
+        columnNumber: 5
+    }, this);
+}
+_s(Modal, "OD7bBpZva5O2jO+Puf00hKivP7c=");
+_c = Modal;
+exports.default = Modal;
+var _c;
+$RefreshReg$(_c, "Modal");
+
+  $parcel$ReactRefreshHelpers$0e5d.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./Modal.module.scss":"kGdfW","react-remove-scroll":"af7VV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"kGdfW":[function(require,module,exports) {
+module.exports["backdrop"] = `i0np6q_backdrop`;
+module.exports["button"] = `i0np6q_button`;
+module.exports["dialog"] = `i0np6q_dialog`;
+module.exports["modalWrapper"] = `i0np6q_modalWrapper`;
+module.exports["nav-bar"] = `i0np6q_nav-bar`;
+module.exports["toDoListWrappers"] = `i0np6q_toDoListWrappers`;
+module.exports["todo-card"] = `i0np6q_todo-card`;
+module.exports["todo-wrapper"] = `i0np6q_todo-wrapper`;
+
+},{}],"af7VV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "RemoveScroll", ()=>(0, _combinationDefault.default));
+var _combination = require("./Combination");
+var _combinationDefault = parcelHelpers.interopDefault(_combination);
+
+},{"./Combination":"hWff9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hWff9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _tslib = require("tslib");
+var _react = require("react");
+var _ui = require("./UI");
+var _sidecar = require("./sidecar");
+var _sidecarDefault = parcelHelpers.interopDefault(_sidecar);
+var ReactRemoveScroll = _react.forwardRef(function(props, ref) {
+    return _react.createElement((0, _ui.RemoveScroll), (0, _tslib.__assign)({}, props, {
+        ref: ref,
+        sideCar: (0, _sidecarDefault.default)
+    }));
+});
+ReactRemoveScroll.classNames = (0, _ui.RemoveScroll).classNames;
+exports.default = ReactRemoveScroll;
+
+},{"tslib":"lRdW5","react":"21dqq","./UI":"cOHO9","./sidecar":"5avMF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lRdW5":[function(require,module,exports) {
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */ /* global Reflect, Promise, SuppressedError, Symbol */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "__extends", ()=>__extends);
+parcelHelpers.export(exports, "__assign", ()=>__assign);
+parcelHelpers.export(exports, "__rest", ()=>__rest);
+parcelHelpers.export(exports, "__decorate", ()=>__decorate);
+parcelHelpers.export(exports, "__param", ()=>__param);
+parcelHelpers.export(exports, "__esDecorate", ()=>__esDecorate);
+parcelHelpers.export(exports, "__runInitializers", ()=>__runInitializers);
+parcelHelpers.export(exports, "__propKey", ()=>__propKey);
+parcelHelpers.export(exports, "__setFunctionName", ()=>__setFunctionName);
+parcelHelpers.export(exports, "__metadata", ()=>__metadata);
+parcelHelpers.export(exports, "__awaiter", ()=>__awaiter);
+parcelHelpers.export(exports, "__generator", ()=>__generator);
+parcelHelpers.export(exports, "__createBinding", ()=>__createBinding);
+parcelHelpers.export(exports, "__exportStar", ()=>__exportStar);
+parcelHelpers.export(exports, "__values", ()=>__values);
+parcelHelpers.export(exports, "__read", ()=>__read);
+/** @deprecated */ parcelHelpers.export(exports, "__spread", ()=>__spread);
+/** @deprecated */ parcelHelpers.export(exports, "__spreadArrays", ()=>__spreadArrays);
+parcelHelpers.export(exports, "__spreadArray", ()=>__spreadArray);
+parcelHelpers.export(exports, "__await", ()=>__await);
+parcelHelpers.export(exports, "__asyncGenerator", ()=>__asyncGenerator);
+parcelHelpers.export(exports, "__asyncDelegator", ()=>__asyncDelegator);
+parcelHelpers.export(exports, "__asyncValues", ()=>__asyncValues);
+parcelHelpers.export(exports, "__makeTemplateObject", ()=>__makeTemplateObject);
+parcelHelpers.export(exports, "__importStar", ()=>__importStar);
+parcelHelpers.export(exports, "__importDefault", ()=>__importDefault);
+parcelHelpers.export(exports, "__classPrivateFieldGet", ()=>__classPrivateFieldGet);
+parcelHelpers.export(exports, "__classPrivateFieldSet", ()=>__classPrivateFieldSet);
+parcelHelpers.export(exports, "__classPrivateFieldIn", ()=>__classPrivateFieldIn);
+parcelHelpers.export(exports, "__addDisposableResource", ()=>__addDisposableResource);
+parcelHelpers.export(exports, "__disposeResources", ()=>__disposeResources);
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf || ({
+        __proto__: []
+    }) instanceof Array && function(d, b) {
+        d.__proto__ = b;
+    } || function(d, b) {
+        for(var p in b)if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return extendStatics(d, b);
+};
+function __extends(d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d, b);
+    function __() {
+        this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for(var s, i = 1, n = arguments.length; i < n; i++){
+            s = arguments[i];
+            for(var p in s)if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+function __rest(s, e) {
+    var t = {};
+    for(var p in s)if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function") {
+        for(var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++)if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
+    }
+    return t;
+}
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+function __param(paramIndex, decorator) {
+    return function(target, key) {
+        decorator(target, key, paramIndex);
+    };
+}
+function __esDecorate(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    function accept(f) {
+        if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
+        return f;
+    }
+    var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+    var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+    var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+    var _, done = false;
+    for(var i = decorators.length - 1; i >= 0; i--){
+        var context = {};
+        for(var p in contextIn)context[p] = p === "access" ? {} : contextIn[p];
+        for(var p in contextIn.access)context.access[p] = contextIn.access[p];
+        context.addInitializer = function(f) {
+            if (done) throw new TypeError("Cannot add initializers after decoration has completed");
+            extraInitializers.push(accept(f || null));
+        };
+        var result = (0, decorators[i])(kind === "accessor" ? {
+            get: descriptor.get,
+            set: descriptor.set
+        } : descriptor[key], context);
+        if (kind === "accessor") {
+            if (result === void 0) continue;
+            if (result === null || typeof result !== "object") throw new TypeError("Object expected");
+            if (_ = accept(result.get)) descriptor.get = _;
+            if (_ = accept(result.set)) descriptor.set = _;
+            if (_ = accept(result.init)) initializers.unshift(_);
+        } else if (_ = accept(result)) {
+            if (kind === "field") initializers.unshift(_);
+            else descriptor[key] = _;
+        }
+    }
+    if (target) Object.defineProperty(target, contextIn.name, descriptor);
+    done = true;
+}
+function __runInitializers(thisArg, initializers, value) {
+    var useValue = arguments.length > 2;
+    for(var i = 0; i < initializers.length; i++)value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+    return useValue ? value : void 0;
+}
+function __propKey(x) {
+    return typeof x === "symbol" ? x : "".concat(x);
+}
+function __setFunctionName(f, name, prefix) {
+    if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
+    return Object.defineProperty(f, "name", {
+        configurable: true,
+        value: prefix ? "".concat(prefix, " ", name) : name
+    });
+}
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+            resolve(value);
+        });
+    }
+    return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+            try {
+                step(generator.next(value));
+            } catch (e) {
+                reject(e);
+            }
+        }
+        function rejected(value) {
+            try {
+                step(generator["throw"](value));
+            } catch (e) {
+                reject(e);
+            }
+        }
+        function step(result) {
+            result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+function __generator(thisArg, body) {
+    var _ = {
+        label: 0,
+        sent: function() {
+            if (t[0] & 1) throw t[1];
+            return t[1];
+        },
+        trys: [],
+        ops: []
+    }, f, y, t, g;
+    return g = {
+        next: verb(0),
+        "throw": verb(1),
+        "return": verb(2)
+    }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
+        return this;
+    }), g;
+    function verb(n) {
+        return function(v) {
+            return step([
+                n,
+                v
+            ]);
+        };
+    }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while(g && (g = 0, op[0] && (_ = 0)), _)try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [
+                op[0] & 2,
+                t.value
+            ];
+            switch(op[0]){
+                case 0:
+                case 1:
+                    t = op;
+                    break;
+                case 4:
+                    _.label++;
+                    return {
+                        value: op[1],
+                        done: false
+                    };
+                case 5:
+                    _.label++;
+                    y = op[1];
+                    op = [
+                        0
+                    ];
+                    continue;
+                case 7:
+                    op = _.ops.pop();
+                    _.trys.pop();
+                    continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                        _ = 0;
+                        continue;
+                    }
+                    if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+                        _.label = op[1];
+                        break;
+                    }
+                    if (op[0] === 6 && _.label < t[1]) {
+                        _.label = t[1];
+                        t = op;
+                        break;
+                    }
+                    if (t && _.label < t[2]) {
+                        _.label = t[2];
+                        _.ops.push(op);
+                        break;
+                    }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop();
+                    continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) {
+            op = [
+                6,
+                e
+            ];
+            y = 0;
+        } finally{
+            f = t = 0;
+        }
+        if (op[0] & 5) throw op[1];
+        return {
+            value: op[0] ? op[1] : void 0,
+            done: true
+        };
+    }
+}
+var __createBinding = Object.create ? function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) desc = {
+        enumerable: true,
+        get: function() {
+            return m[k];
+        }
+    };
+    Object.defineProperty(o, k2, desc);
+} : function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+};
+function __exportStar(m, o) {
+    for(var p in m)if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p)) __createBinding(o, m, p);
+}
+function __values(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function() {
+            if (o && i >= o.length) o = void 0;
+            return {
+                value: o && o[i++],
+                done: !o
+            };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while((n === void 0 || n-- > 0) && !(r = i.next()).done)ar.push(r.value);
+    } catch (error) {
+        e = {
+            error: error
+        };
+    } finally{
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        } finally{
+            if (e) throw e.error;
+        }
+    }
+    return ar;
+}
+function __spread() {
+    for(var ar = [], i = 0; i < arguments.length; i++)ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+function __spreadArrays() {
+    for(var s = 0, i = 0, il = arguments.length; i < il; i++)s += arguments[i].length;
+    for(var r = Array(s), k = 0, i = 0; i < il; i++)for(var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)r[k] = a[j];
+    return r;
+}
+function __spreadArray(to, from, pack) {
+    if (pack || arguments.length === 2) {
+        for(var i = 0, l = from.length, ar; i < l; i++)if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+}
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
+        return this;
+    }, i;
+    function verb(n) {
+        if (g[n]) i[n] = function(v) {
+            return new Promise(function(a, b) {
+                q.push([
+                    n,
+                    v,
+                    a,
+                    b
+                ]) > 1 || resume(n, v);
+            });
+        };
+    }
+    function resume(n, v) {
+        try {
+            step(g[n](v));
+        } catch (e) {
+            settle(q[0][3], e);
+        }
+    }
+    function step(r) {
+        r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
+    }
+    function fulfill(value) {
+        resume("next", value);
+    }
+    function reject(value) {
+        resume("throw", value);
+    }
+    function settle(f, v) {
+        if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]);
+    }
+}
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function(e) {
+        throw e;
+    }), verb("return"), i[Symbol.iterator] = function() {
+        return this;
+    }, i;
+    function verb(n, f) {
+        i[n] = o[n] ? function(v) {
+            return (p = !p) ? {
+                value: __await(o[n](v)),
+                done: false
+            } : f ? f(v) : v;
+        } : f;
+    }
+}
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
+        return this;
+    }, i);
+    function verb(n) {
+        i[n] = o[n] && function(v) {
+            return new Promise(function(resolve, reject) {
+                v = o[n](v), settle(resolve, reject, v.done, v.value);
+            });
+        };
+    }
+    function settle(resolve, reject, d, v) {
+        Promise.resolve(v).then(function(v) {
+            resolve({
+                value: v,
+                done: d
+            });
+        }, reject);
+    }
+}
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) Object.defineProperty(cooked, "raw", {
+        value: raw
+    });
+    else cooked.raw = raw;
+    return cooked;
+}
+var __setModuleDefault = Object.create ? function(o, v) {
+    Object.defineProperty(o, "default", {
+        enumerable: true,
+        value: v
+    });
+} : function(o, v) {
+    o["default"] = v;
+};
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) {
+        for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    }
+    __setModuleDefault(result, mod);
+    return result;
+}
+function __importDefault(mod) {
+    return mod && mod.__esModule ? mod : {
+        default: mod
+    };
+}
+function __classPrivateFieldGet(receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+}
+function __classPrivateFieldSet(receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
+}
+function __classPrivateFieldIn(state, receiver) {
+    if (receiver === null || typeof receiver !== "object" && typeof receiver !== "function") throw new TypeError("Cannot use 'in' operator on non-object");
+    return typeof state === "function" ? receiver === state : state.has(receiver);
+}
+function __addDisposableResource(env, value, async) {
+    if (value !== null && value !== void 0) {
+        if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
+        var dispose;
+        if (async) {
+            if (!Symbol.asyncDispose) throw new TypeError("Symbol.asyncDispose is not defined.");
+            dispose = value[Symbol.asyncDispose];
+        }
+        if (dispose === void 0) {
+            if (!Symbol.dispose) throw new TypeError("Symbol.dispose is not defined.");
+            dispose = value[Symbol.dispose];
+        }
+        if (typeof dispose !== "function") throw new TypeError("Object not disposable.");
+        env.stack.push({
+            value: value,
+            dispose: dispose,
+            async: async
+        });
+    } else if (async) env.stack.push({
+        async: true
+    });
+    return value;
+}
+var _SuppressedError = typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+    var e = new Error(message);
+    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+};
+function __disposeResources(env) {
+    function fail(e) {
+        env.error = env.hasError ? new _SuppressedError(e, env.error, "An error was suppressed during disposal.") : e;
+        env.hasError = true;
+    }
+    function next() {
+        while(env.stack.length){
+            var rec = env.stack.pop();
+            try {
+                var result = rec.dispose && rec.dispose.call(rec.value);
+                if (rec.async) return Promise.resolve(result).then(next, function(e) {
+                    fail(e);
+                    return next();
+                });
+            } catch (e) {
+                fail(e);
+            }
+        }
+        if (env.hasError) throw env.error;
+    }
+    return next();
+}
+exports.default = {
+    __extends: __extends,
+    __assign: __assign,
+    __rest: __rest,
+    __decorate: __decorate,
+    __param: __param,
+    __metadata: __metadata,
+    __awaiter: __awaiter,
+    __generator: __generator,
+    __createBinding: __createBinding,
+    __exportStar: __exportStar,
+    __values: __values,
+    __read: __read,
+    __spread: __spread,
+    __spreadArrays: __spreadArrays,
+    __spreadArray: __spreadArray,
+    __await: __await,
+    __asyncGenerator: __asyncGenerator,
+    __asyncDelegator: __asyncDelegator,
+    __asyncValues: __asyncValues,
+    __makeTemplateObject: __makeTemplateObject,
+    __importStar: __importStar,
+    __importDefault: __importDefault,
+    __classPrivateFieldGet: __classPrivateFieldGet,
+    __classPrivateFieldSet: __classPrivateFieldSet,
+    __classPrivateFieldIn: __classPrivateFieldIn,
+    __addDisposableResource: __addDisposableResource,
+    __disposeResources: __disposeResources
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cOHO9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "RemoveScroll", ()=>RemoveScroll);
+var _tslib = require("tslib");
+var _react = require("react");
+var _constants = require("react-remove-scroll-bar/constants");
+var _useCallbackRef = require("use-callback-ref");
+var _medium = require("./medium");
+var nothing = function() {
+    return;
+};
+/**
+ * Removes scrollbar from the page and contain the scroll within the Lock
+ */ var RemoveScroll = _react.forwardRef(function(props, parentRef) {
+    var ref = _react.useRef(null);
+    var _a = _react.useState({
+        onScrollCapture: nothing,
+        onWheelCapture: nothing,
+        onTouchMoveCapture: nothing
+    }), callbacks = _a[0], setCallbacks = _a[1];
+    var forwardProps = props.forwardProps, children = props.children, className = props.className, removeScrollBar = props.removeScrollBar, enabled = props.enabled, shards = props.shards, sideCar = props.sideCar, noIsolation = props.noIsolation, inert = props.inert, allowPinchZoom = props.allowPinchZoom, _b = props.as, Container = _b === void 0 ? "div" : _b, gapMode = props.gapMode, rest = (0, _tslib.__rest)(props, [
+        "forwardProps",
+        "children",
+        "className",
+        "removeScrollBar",
+        "enabled",
+        "shards",
+        "sideCar",
+        "noIsolation",
+        "inert",
+        "allowPinchZoom",
+        "as",
+        "gapMode"
+    ]);
+    var SideCar = sideCar;
+    var containerRef = (0, _useCallbackRef.useMergeRefs)([
+        ref,
+        parentRef
+    ]);
+    var containerProps = (0, _tslib.__assign)((0, _tslib.__assign)({}, rest), callbacks);
+    return _react.createElement(_react.Fragment, null, enabled && _react.createElement(SideCar, {
+        sideCar: (0, _medium.effectCar),
+        removeScrollBar: removeScrollBar,
+        shards: shards,
+        noIsolation: noIsolation,
+        inert: inert,
+        setCallbacks: setCallbacks,
+        allowPinchZoom: !!allowPinchZoom,
+        lockRef: ref,
+        gapMode: gapMode
+    }), forwardProps ? _react.cloneElement(_react.Children.only(children), (0, _tslib.__assign)((0, _tslib.__assign)({}, containerProps), {
+        ref: containerRef
+    })) : _react.createElement(Container, (0, _tslib.__assign)({}, containerProps, {
+        className: className,
+        ref: containerRef
+    }), children));
+});
+RemoveScroll.defaultProps = {
+    enabled: true,
+    removeScrollBar: true,
+    inert: false
+};
+RemoveScroll.classNames = {
+    fullWidth: (0, _constants.fullWidthClassName),
+    zeroRight: (0, _constants.zeroRightClassName)
+};
+
+},{"tslib":"lRdW5","react":"21dqq","react-remove-scroll-bar/constants":"dMIJh","use-callback-ref":"J09ED","./medium":"eD9Xv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dMIJh":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "zeroRightClassName", ()=>zeroRightClassName);
+parcelHelpers.export(exports, "fullWidthClassName", ()=>fullWidthClassName);
+parcelHelpers.export(exports, "noScrollbarsClassName", ()=>noScrollbarsClassName);
+parcelHelpers.export(exports, "removedBarSizeVariable", ()=>removedBarSizeVariable);
+var zeroRightClassName = "right-scroll-bar-position";
+var fullWidthClassName = "width-before-scroll-bar";
+var noScrollbarsClassName = "with-scroll-bars-hidden";
+var removedBarSizeVariable = "--removed-body-scroll-bar-size";
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"J09ED":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "assignRef", ()=>(0, _assignRef.assignRef));
+// callback ref
+parcelHelpers.export(exports, "useCallbackRef", ()=>(0, _useRef.useCallbackRef));
+parcelHelpers.export(exports, "createCallbackRef", ()=>(0, _createRef.createCallbackRef));
+// merge ref
+parcelHelpers.export(exports, "mergeRefs", ()=>(0, _mergeRef.mergeRefs));
+parcelHelpers.export(exports, "useMergeRefs", ()=>(0, _useMergeRef.useMergeRefs));
+// transform ref
+parcelHelpers.export(exports, "useTransformRef", ()=>(0, _useTransformRef.useTransformRef));
+parcelHelpers.export(exports, "transformRef", ()=>(0, _transformRef.transformRef));
+// refToCallback
+parcelHelpers.export(exports, "refToCallback", ()=>(0, _refToCallback.refToCallback));
+parcelHelpers.export(exports, "useRefToCallback", ()=>(0, _refToCallback.useRefToCallback));
+var _assignRef = require("./assignRef");
+var _useRef = require("./useRef");
+var _createRef = require("./createRef");
+var _mergeRef = require("./mergeRef");
+var _useMergeRef = require("./useMergeRef");
+var _useTransformRef = require("./useTransformRef");
+var _transformRef = require("./transformRef");
+var _refToCallback = require("./refToCallback");
+
+},{"./assignRef":false,"./useRef":false,"./createRef":false,"./mergeRef":false,"./useMergeRef":"kRk49","./useTransformRef":false,"./transformRef":false,"./refToCallback":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jYvzu":[function(require,module,exports) {
+/**
+ * Assigns a value for a given ref, no matter of the ref format
+ * @param {RefObject} ref - a callback function or ref object
+ * @param value - a new value
+ *
+ * @see https://github.com/theKashey/use-callback-ref#assignref
+ * @example
+ * const refObject = useRef();
+ * const refFn = (ref) => {....}
+ *
+ * assignRef(refObject, "refValue");
+ * assignRef(refFn, "refValue");
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "assignRef", ()=>assignRef);
+function assignRef(ref, value) {
+    if (typeof ref === "function") ref(value);
+    else if (ref) ref.current = value;
+    return ref;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dYsoU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * creates a MutableRef with ref change callback
+ * @param initialValue - initial ref value
+ * @param {Function} callback - a callback to run when value changes
+ *
+ * @example
+ * const ref = useCallbackRef(0, (newValue, oldValue) => console.log(oldValue, '->', newValue);
+ * ref.current = 1;
+ * // prints 0 -> 1
+ *
+ * @see https://reactjs.org/docs/hooks-reference.html#useref
+ * @see https://github.com/theKashey/use-callback-ref#usecallbackref---to-replace-reactuseref
+ * @returns {MutableRefObject}
+ */ parcelHelpers.export(exports, "useCallbackRef", ()=>useCallbackRef);
+var _react = require("react");
+function useCallbackRef(initialValue, callback) {
+    var ref = (0, _react.useState)(function() {
+        return {
+            // value
+            value: initialValue,
+            // last callback
+            callback: callback,
+            // "memoized" public interface
+            facade: {
+                get current () {
+                    return ref.value;
+                },
+                set current (value){
+                    var last = ref.value;
+                    if (last !== value) {
+                        ref.value = value;
+                        ref.callback(value, last);
+                    }
+                }
+            }
+        };
+    })[0];
+    // update callback
+    ref.callback = callback;
+    return ref.facade;
+}
+
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kRk49":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * Merges two or more refs together providing a single interface to set their value
+ * @param {RefObject|Ref} refs
+ * @returns {MutableRefObject} - a new ref, which translates all changes to {refs}
+ *
+ * @see {@link mergeRefs} a version without buit-in memoization
+ * @see https://github.com/theKashey/use-callback-ref#usemergerefs
+ * @example
+ * const Component = React.forwardRef((props, ref) => {
+ *   const ownRef = useRef();
+ *   const domRef = useMergeRefs([ref, ownRef]); // 👈 merge together
+ *   return <div ref={domRef}>...</div>
+ * }
+ */ parcelHelpers.export(exports, "useMergeRefs", ()=>useMergeRefs);
+var _react = require("react");
+var _assignRef = require("./assignRef");
+var _useRef = require("./useRef");
+var currentValues = new WeakMap();
+function useMergeRefs(refs, defaultValue) {
+    var callbackRef = (0, _useRef.useCallbackRef)(defaultValue || null, function(newValue) {
+        return refs.forEach(function(ref) {
+            return (0, _assignRef.assignRef)(ref, newValue);
+        });
+    });
+    // handle refs changes - added or removed
+    _react.useLayoutEffect(function() {
+        var oldValue = currentValues.get(callbackRef);
+        if (oldValue) {
+            var prevRefs_1 = new Set(oldValue);
+            var nextRefs_1 = new Set(refs);
+            var current_1 = callbackRef.current;
+            prevRefs_1.forEach(function(ref) {
+                if (!nextRefs_1.has(ref)) (0, _assignRef.assignRef)(ref, null);
+            });
+            nextRefs_1.forEach(function(ref) {
+                if (!prevRefs_1.has(ref)) (0, _assignRef.assignRef)(ref, current_1);
+            });
+        }
+        currentValues.set(callbackRef, refs);
+    }, [
+        refs
+    ]);
+    return callbackRef;
+}
+
+},{"react":"21dqq","./assignRef":"jYvzu","./useRef":"dYsoU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eD9Xv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "effectCar", ()=>effectCar);
+var _useSidecar = require("use-sidecar");
+var effectCar = (0, _useSidecar.createSidecarMedium)();
+
+},{"use-sidecar":"lj6LD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lj6LD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "sidecar", ()=>(0, _hoc.sidecar));
+parcelHelpers.export(exports, "useSidecar", ()=>(0, _hook.useSidecar));
+parcelHelpers.export(exports, "setConfig", ()=>(0, _config.setConfig));
+parcelHelpers.export(exports, "createMedium", ()=>(0, _medium.createMedium));
+parcelHelpers.export(exports, "createSidecarMedium", ()=>(0, _medium.createSidecarMedium));
+parcelHelpers.export(exports, "renderCar", ()=>(0, _renderProp.renderCar));
+parcelHelpers.export(exports, "exportSidecar", ()=>(0, _exports.exportSidecar));
+var _hoc = require("./hoc");
+var _hook = require("./hook");
+var _config = require("./config");
+var _medium = require("./medium");
+var _renderProp = require("./renderProp");
+var _exports = require("./exports");
+
+},{"./hoc":false,"./hook":false,"./config":false,"./medium":"1OFDj","./renderProp":false,"./exports":"36bfj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1OFDj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "createMedium", ()=>createMedium);
+// eslint-disable-next-line @typescript-eslint/ban-types
+parcelHelpers.export(exports, "createSidecarMedium", ()=>createSidecarMedium);
+var _tslib = require("tslib");
+function ItoI(a) {
+    return a;
+}
+function innerCreateMedium(defaults, middleware) {
+    if (middleware === void 0) middleware = ItoI;
+    var buffer = [];
+    var assigned = false;
+    var medium = {
+        read: function() {
+            if (assigned) throw new Error("Sidecar: could not `read` from an `assigned` medium. `read` could be used only with `useMedium`.");
+            if (buffer.length) return buffer[buffer.length - 1];
+            return defaults;
+        },
+        useMedium: function(data) {
+            var item = middleware(data, assigned);
+            buffer.push(item);
+            return function() {
+                buffer = buffer.filter(function(x) {
+                    return x !== item;
+                });
+            };
+        },
+        assignSyncMedium: function(cb) {
+            assigned = true;
+            while(buffer.length){
+                var cbs = buffer;
+                buffer = [];
+                cbs.forEach(cb);
+            }
+            buffer = {
+                push: function(x) {
+                    return cb(x);
+                },
+                filter: function() {
+                    return buffer;
+                }
+            };
+        },
+        assignMedium: function(cb) {
+            assigned = true;
+            var pendingQueue = [];
+            if (buffer.length) {
+                var cbs = buffer;
+                buffer = [];
+                cbs.forEach(cb);
+                pendingQueue = buffer;
+            }
+            var executeQueue = function() {
+                var cbs = pendingQueue;
+                pendingQueue = [];
+                cbs.forEach(cb);
+            };
+            var cycle = function() {
+                return Promise.resolve().then(executeQueue);
+            };
+            cycle();
+            buffer = {
+                push: function(x) {
+                    pendingQueue.push(x);
+                    cycle();
+                },
+                filter: function(filter) {
+                    pendingQueue = pendingQueue.filter(filter);
+                    return buffer;
+                }
+            };
+        }
+    };
+    return medium;
+}
+function createMedium(defaults, middleware) {
+    if (middleware === void 0) middleware = ItoI;
+    return innerCreateMedium(defaults, middleware);
+}
+function createSidecarMedium(options) {
+    if (options === void 0) options = {};
+    var medium = innerCreateMedium(null);
+    medium.options = (0, _tslib.__assign)({
+        async: true,
+        ssr: false
+    }, options);
+    return medium;
+}
+
+},{"tslib":"lRdW5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"36bfj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "exportSidecar", ()=>exportSidecar);
+var _tslib = require("tslib");
+var _react = require("react");
+var SideCar = function(_a) {
+    var sideCar = _a.sideCar, rest = (0, _tslib.__rest)(_a, [
+        "sideCar"
+    ]);
+    if (!sideCar) throw new Error("Sidecar: please provide `sideCar` property to import the right car");
+    var Target = sideCar.read();
+    if (!Target) throw new Error("Sidecar medium not found");
+    return _react.createElement(Target, (0, _tslib.__assign)({}, rest));
+};
+SideCar.isSideCarExport = true;
+function exportSidecar(medium, exported) {
+    medium.useMedium(exported);
+    return SideCar;
+}
+
+},{"tslib":"lRdW5","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5avMF":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _useSidecar = require("use-sidecar");
+var _sideEffect = require("./SideEffect");
+var _medium = require("./medium");
+exports.default = (0, _useSidecar.exportSidecar)((0, _medium.effectCar), (0, _sideEffect.RemoveScrollSideCar));
+
+},{"use-sidecar":"lj6LD","./SideEffect":"fqUhK","./medium":"eD9Xv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fqUhK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getTouchXY", ()=>getTouchXY);
+parcelHelpers.export(exports, "getDeltaXY", ()=>getDeltaXY);
+parcelHelpers.export(exports, "RemoveScrollSideCar", ()=>RemoveScrollSideCar);
+var _tslib = require("tslib");
+var _react = require("react");
+var _reactRemoveScrollBar = require("react-remove-scroll-bar");
+var _reactStyleSingleton = require("react-style-singleton");
+var _aggresiveCapture = require("./aggresiveCapture");
+var _handleScroll = require("./handleScroll");
+var getTouchXY = function(event) {
+    return "changedTouches" in event ? [
+        event.changedTouches[0].clientX,
+        event.changedTouches[0].clientY
+    ] : [
+        0,
+        0
+    ];
+};
+var getDeltaXY = function(event) {
+    return [
+        event.deltaX,
+        event.deltaY
+    ];
+};
+var extractRef = function(ref) {
+    return ref && "current" in ref ? ref.current : ref;
+};
+var deltaCompare = function(x, y) {
+    return x[0] === y[0] && x[1] === y[1];
+};
+var generateStyle = function(id) {
+    return "\n  .block-interactivity-".concat(id, " {pointer-events: none;}\n  .allow-interactivity-").concat(id, " {pointer-events: all;}\n");
+};
+var idCounter = 0;
+var lockStack = [];
+function RemoveScrollSideCar(props) {
+    var shouldPreventQueue = _react.useRef([]);
+    var touchStartRef = _react.useRef([
+        0,
+        0
+    ]);
+    var activeAxis = _react.useRef();
+    var id = _react.useState(idCounter++)[0];
+    var Style = _react.useState((0, _reactStyleSingleton.styleSingleton))[0];
+    var lastProps = _react.useRef(props);
+    _react.useEffect(function() {
+        lastProps.current = props;
+    }, [
+        props
+    ]);
+    _react.useEffect(function() {
+        if (props.inert) {
+            document.body.classList.add("block-interactivity-".concat(id));
+            var allow_1 = (0, _tslib.__spreadArray)([
+                props.lockRef.current
+            ], (props.shards || []).map(extractRef), true).filter(Boolean);
+            allow_1.forEach(function(el) {
+                return el.classList.add("allow-interactivity-".concat(id));
+            });
+            return function() {
+                document.body.classList.remove("block-interactivity-".concat(id));
+                allow_1.forEach(function(el) {
+                    return el.classList.remove("allow-interactivity-".concat(id));
+                });
+            };
+        }
+        return;
+    }, [
+        props.inert,
+        props.lockRef.current,
+        props.shards
+    ]);
+    var shouldCancelEvent = _react.useCallback(function(event, parent) {
+        if ("touches" in event && event.touches.length === 2) return !lastProps.current.allowPinchZoom;
+        var touch = getTouchXY(event);
+        var touchStart = touchStartRef.current;
+        var deltaX = "deltaX" in event ? event.deltaX : touchStart[0] - touch[0];
+        var deltaY = "deltaY" in event ? event.deltaY : touchStart[1] - touch[1];
+        var currentAxis;
+        var target = event.target;
+        var moveDirection = Math.abs(deltaX) > Math.abs(deltaY) ? "h" : "v";
+        // allow horizontal touch move on Range inputs. They will not cause any scroll
+        if ("touches" in event && moveDirection === "h" && target.type === "range") return false;
+        var canBeScrolledInMainDirection = (0, _handleScroll.locationCouldBeScrolled)(moveDirection, target);
+        if (!canBeScrolledInMainDirection) return true;
+        if (canBeScrolledInMainDirection) currentAxis = moveDirection;
+        else {
+            currentAxis = moveDirection === "v" ? "h" : "v";
+            canBeScrolledInMainDirection = (0, _handleScroll.locationCouldBeScrolled)(moveDirection, target);
+        // other axis might be not scrollable
+        }
+        if (!canBeScrolledInMainDirection) return false;
+        if (!activeAxis.current && "changedTouches" in event && (deltaX || deltaY)) activeAxis.current = currentAxis;
+        if (!currentAxis) return true;
+        var cancelingAxis = activeAxis.current || currentAxis;
+        return (0, _handleScroll.handleScroll)(cancelingAxis, parent, event, cancelingAxis === "h" ? deltaX : deltaY, true);
+    }, []);
+    var shouldPrevent = _react.useCallback(function(_event) {
+        var event = _event;
+        if (!lockStack.length || lockStack[lockStack.length - 1] !== Style) // not the last active
+        return;
+        var delta = "deltaY" in event ? getDeltaXY(event) : getTouchXY(event);
+        var sourceEvent = shouldPreventQueue.current.filter(function(e) {
+            return e.name === event.type && (e.target === event.target || event.target === e.shadowParent) && deltaCompare(e.delta, delta);
+        })[0];
+        // self event, and should be canceled
+        if (sourceEvent && sourceEvent.should) {
+            if (event.cancelable) event.preventDefault();
+            return;
+        }
+        // outside or shard event
+        if (!sourceEvent) {
+            var shardNodes = (lastProps.current.shards || []).map(extractRef).filter(Boolean).filter(function(node) {
+                return node.contains(event.target);
+            });
+            var shouldStop = shardNodes.length > 0 ? shouldCancelEvent(event, shardNodes[0]) : !lastProps.current.noIsolation;
+            if (shouldStop) {
+                if (event.cancelable) event.preventDefault();
+            }
+        }
+    }, []);
+    var shouldCancel = _react.useCallback(function(name, delta, target, should) {
+        var event = {
+            name: name,
+            delta: delta,
+            target: target,
+            should: should,
+            shadowParent: getOutermostShadowParent(target)
+        };
+        shouldPreventQueue.current.push(event);
+        setTimeout(function() {
+            shouldPreventQueue.current = shouldPreventQueue.current.filter(function(e) {
+                return e !== event;
+            });
+        }, 1);
+    }, []);
+    var scrollTouchStart = _react.useCallback(function(event) {
+        touchStartRef.current = getTouchXY(event);
+        activeAxis.current = undefined;
+    }, []);
+    var scrollWheel = _react.useCallback(function(event) {
+        shouldCancel(event.type, getDeltaXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
+    }, []);
+    var scrollTouchMove = _react.useCallback(function(event) {
+        shouldCancel(event.type, getTouchXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
+    }, []);
+    _react.useEffect(function() {
+        lockStack.push(Style);
+        props.setCallbacks({
+            onScrollCapture: scrollWheel,
+            onWheelCapture: scrollWheel,
+            onTouchMoveCapture: scrollTouchMove
+        });
+        document.addEventListener("wheel", shouldPrevent, (0, _aggresiveCapture.nonPassive));
+        document.addEventListener("touchmove", shouldPrevent, (0, _aggresiveCapture.nonPassive));
+        document.addEventListener("touchstart", scrollTouchStart, (0, _aggresiveCapture.nonPassive));
+        return function() {
+            lockStack = lockStack.filter(function(inst) {
+                return inst !== Style;
+            });
+            document.removeEventListener("wheel", shouldPrevent, (0, _aggresiveCapture.nonPassive));
+            document.removeEventListener("touchmove", shouldPrevent, (0, _aggresiveCapture.nonPassive));
+            document.removeEventListener("touchstart", scrollTouchStart, (0, _aggresiveCapture.nonPassive));
+        };
+    }, []);
+    var removeScrollBar = props.removeScrollBar, inert = props.inert;
+    return _react.createElement(_react.Fragment, null, inert ? _react.createElement(Style, {
+        styles: generateStyle(id)
+    }) : null, removeScrollBar ? _react.createElement((0, _reactRemoveScrollBar.RemoveScrollBar), {
+        gapMode: props.gapMode
+    }) : null);
+}
+function getOutermostShadowParent(node) {
+    var shadowParent = null;
+    while(node !== null){
+        if (node instanceof ShadowRoot) {
+            shadowParent = node.host;
+            node = node.host;
+        }
+        node = node.parentNode;
+    }
+    return shadowParent;
+}
+
+},{"tslib":"lRdW5","react":"21dqq","react-remove-scroll-bar":"dnQwg","react-style-singleton":"kZ76E","./aggresiveCapture":"hHc5S","./handleScroll":"2b1Si","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dnQwg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "RemoveScrollBar", ()=>(0, _component.RemoveScrollBar));
+parcelHelpers.export(exports, "zeroRightClassName", ()=>(0, _constants.zeroRightClassName));
+parcelHelpers.export(exports, "fullWidthClassName", ()=>(0, _constants.fullWidthClassName));
+parcelHelpers.export(exports, "noScrollbarsClassName", ()=>(0, _constants.noScrollbarsClassName));
+parcelHelpers.export(exports, "removedBarSizeVariable", ()=>(0, _constants.removedBarSizeVariable));
+parcelHelpers.export(exports, "getGapWidth", ()=>(0, _utils.getGapWidth));
+var _component = require("./component");
+var _constants = require("./constants");
+var _utils = require("./utils");
+
+},{"./component":"9Tx5D","./constants":"dMIJh","./utils":"6rClG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9Tx5D":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "RemoveScrollBar", ()=>RemoveScrollBar);
+var _react = require("react");
+var _reactStyleSingleton = require("react-style-singleton");
+var _constants = require("./constants");
+var _utils = require("./utils");
+var Style = (0, _reactStyleSingleton.styleSingleton)();
+// important tip - once we measure scrollBar width and remove them
+// we could not repeat this operation
+// thus we are using style-singleton - only the first "yet correct" style will be applied.
+var getStyles = function(_a, allowRelative, gapMode, important) {
+    var left = _a.left, top = _a.top, right = _a.right, gap = _a.gap;
+    if (gapMode === void 0) gapMode = "margin";
+    return "\n  .".concat((0, _constants.noScrollbarsClassName), " {\n   overflow: hidden ").concat(important, ";\n   padding-right: ").concat(gap, "px ").concat(important, ";\n  }\n  body {\n    overflow: hidden ").concat(important, ";\n    overscroll-behavior: contain;\n    ").concat([
+        allowRelative && "position: relative ".concat(important, ";"),
+        gapMode === "margin" && "\n    padding-left: ".concat(left, "px;\n    padding-top: ").concat(top, "px;\n    padding-right: ").concat(right, "px;\n    margin-left:0;\n    margin-top:0;\n    margin-right: ").concat(gap, "px ").concat(important, ";\n    "),
+        gapMode === "padding" && "padding-right: ".concat(gap, "px ").concat(important, ";")
+    ].filter(Boolean).join(""), "\n  }\n  \n  .").concat((0, _constants.zeroRightClassName), " {\n    right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat((0, _constants.fullWidthClassName), " {\n    margin-right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat((0, _constants.zeroRightClassName), " .").concat((0, _constants.zeroRightClassName), " {\n    right: 0 ").concat(important, ";\n  }\n  \n  .").concat((0, _constants.fullWidthClassName), " .").concat((0, _constants.fullWidthClassName), " {\n    margin-right: 0 ").concat(important, ";\n  }\n  \n  body {\n    ").concat((0, _constants.removedBarSizeVariable), ": ").concat(gap, "px;\n  }\n");
+};
+var RemoveScrollBar = function(props) {
+    var noRelative = props.noRelative, noImportant = props.noImportant, _a = props.gapMode, gapMode = _a === void 0 ? "margin" : _a;
+    /*
+     gap will be measured on every component mount
+     however it will be used only by the "first" invocation
+     due to singleton nature of <Style
+     */ var gap = _react.useMemo(function() {
+        return (0, _utils.getGapWidth)(gapMode);
+    }, [
+        gapMode
+    ]);
+    return _react.createElement(Style, {
+        styles: getStyles(gap, !noRelative, gapMode, !noImportant ? "!important" : "")
+    });
+};
+
+},{"react":"21dqq","react-style-singleton":"kZ76E","./constants":"dMIJh","./utils":"6rClG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kZ76E":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "styleSingleton", ()=>(0, _component.styleSingleton));
+parcelHelpers.export(exports, "stylesheetSingleton", ()=>(0, _singleton.stylesheetSingleton));
+parcelHelpers.export(exports, "styleHookSingleton", ()=>(0, _hook.styleHookSingleton));
+var _component = require("./component");
+var _singleton = require("./singleton");
+var _hook = require("./hook");
+
+},{"./component":"gkeY6","./singleton":"efDBm","./hook":"cNlHk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkeY6":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "styleSingleton", ()=>styleSingleton);
+var _hook = require("./hook");
+var styleSingleton = function() {
+    var useStyle = (0, _hook.styleHookSingleton)();
+    var Sheet = function(_a) {
+        var styles = _a.styles, dynamic = _a.dynamic;
+        useStyle(styles, dynamic);
+        return null;
+    };
+    return Sheet;
+};
+
+},{"./hook":"cNlHk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cNlHk":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "styleHookSingleton", ()=>styleHookSingleton);
+var _react = require("react");
+var _singleton = require("./singleton");
+var styleHookSingleton = function() {
+    var sheet = (0, _singleton.stylesheetSingleton)();
+    return function(styles, isDynamic) {
+        _react.useEffect(function() {
+            sheet.add(styles);
+            return function() {
+                sheet.remove();
+            };
+        }, [
+            styles && isDynamic
+        ]);
+    };
+};
+
+},{"react":"21dqq","./singleton":"efDBm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"efDBm":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "stylesheetSingleton", ()=>stylesheetSingleton);
+var _getNonce = require("get-nonce");
+function makeStyleTag() {
+    if (!document) return null;
+    var tag = document.createElement("style");
+    tag.type = "text/css";
+    var nonce = (0, _getNonce.getNonce)();
+    if (nonce) tag.setAttribute("nonce", nonce);
+    return tag;
+}
+function injectStyles(tag, css) {
+    // @ts-ignore
+    if (tag.styleSheet) // @ts-ignore
+    tag.styleSheet.cssText = css;
+    else tag.appendChild(document.createTextNode(css));
+}
+function insertStyleTag(tag) {
+    var head = document.head || document.getElementsByTagName("head")[0];
+    head.appendChild(tag);
+}
+var stylesheetSingleton = function() {
+    var counter = 0;
+    var stylesheet = null;
+    return {
+        add: function(style) {
+            if (counter == 0) {
+                if (stylesheet = makeStyleTag()) {
+                    injectStyles(stylesheet, style);
+                    insertStyleTag(stylesheet);
+                }
+            }
+            counter++;
+        },
+        remove: function() {
+            counter--;
+            if (!counter && stylesheet) {
+                stylesheet.parentNode && stylesheet.parentNode.removeChild(stylesheet);
+                stylesheet = null;
+            }
+        }
+    };
+};
+
+},{"get-nonce":"hfsFH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hfsFH":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "setNonce", ()=>setNonce);
+parcelHelpers.export(exports, "getNonce", ()=>getNonce);
+var currentNonce;
+var setNonce = function(nonce) {
+    currentNonce = nonce;
+};
+var getNonce = function() {
+    if (currentNonce) return currentNonce;
+    if (typeof __webpack_nonce__ !== "undefined") return __webpack_nonce__;
+    return undefined;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6rClG":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "zeroGap", ()=>zeroGap);
+parcelHelpers.export(exports, "getGapWidth", ()=>getGapWidth);
+var zeroGap = {
+    left: 0,
+    top: 0,
+    right: 0,
+    gap: 0
+};
+var parse = function(x) {
+    return parseInt(x || "", 10) || 0;
+};
+var getOffset = function(gapMode) {
+    var cs = window.getComputedStyle(document.body);
+    var left = cs[gapMode === "padding" ? "paddingLeft" : "marginLeft"];
+    var top = cs[gapMode === "padding" ? "paddingTop" : "marginTop"];
+    var right = cs[gapMode === "padding" ? "paddingRight" : "marginRight"];
+    return [
+        parse(left),
+        parse(top),
+        parse(right)
+    ];
+};
+var getGapWidth = function(gapMode) {
+    if (gapMode === void 0) gapMode = "margin";
+    if (typeof window === "undefined") return zeroGap;
+    var offsets = getOffset(gapMode);
+    var documentWidth = document.documentElement.clientWidth;
+    var windowWidth = window.innerWidth;
+    return {
+        left: offsets[0],
+        top: offsets[1],
+        right: offsets[2],
+        gap: Math.max(0, windowWidth - documentWidth + offsets[2] - offsets[0])
+    };
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hHc5S":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "nonPassive", ()=>nonPassive);
+var passiveSupported = false;
+if (typeof window !== "undefined") try {
+    var options = Object.defineProperty({}, "passive", {
+        get: function() {
+            passiveSupported = true;
+            return true;
+        }
+    });
+    // @ts-ignore
+    window.addEventListener("test", options, options);
+    // @ts-ignore
+    window.removeEventListener("test", options, options);
+} catch (err) {
+    passiveSupported = false;
+}
+var nonPassive = passiveSupported ? {
+    passive: false
+} : false;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2b1Si":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "locationCouldBeScrolled", ()=>locationCouldBeScrolled);
+parcelHelpers.export(exports, "handleScroll", ()=>handleScroll);
+var alwaysContainsScroll = function(node) {
+    // textarea will always _contain_ scroll inside self. It only can be hidden
+    return node.tagName === "TEXTAREA";
+};
+var elementCanBeScrolled = function(node, overflow) {
+    var styles = window.getComputedStyle(node);
+    return(// not-not-scrollable
+    styles[overflow] !== "hidden" && // contains scroll inside self
+    !(styles.overflowY === styles.overflowX && !alwaysContainsScroll(node) && styles[overflow] === "visible"));
+};
+var elementCouldBeVScrolled = function(node) {
+    return elementCanBeScrolled(node, "overflowY");
+};
+var elementCouldBeHScrolled = function(node) {
+    return elementCanBeScrolled(node, "overflowX");
+};
+var locationCouldBeScrolled = function(axis, node) {
+    var ownerDocument = node.ownerDocument;
+    var current = node;
+    do {
+        // Skip over shadow root
+        if (typeof ShadowRoot !== "undefined" && current instanceof ShadowRoot) current = current.host;
+        var isScrollable = elementCouldBeScrolled(axis, current);
+        if (isScrollable) {
+            var _a = getScrollVariables(axis, current), s = _a[1], d = _a[2];
+            if (s > d) return true;
+        }
+        current = current.parentNode;
+    }while (current && current !== ownerDocument.body);
+    return false;
+};
+var getVScrollVariables = function(_a) {
+    var scrollTop = _a.scrollTop, scrollHeight = _a.scrollHeight, clientHeight = _a.clientHeight;
+    return [
+        scrollTop,
+        scrollHeight,
+        clientHeight
+    ];
+};
+var getHScrollVariables = function(_a) {
+    var scrollLeft = _a.scrollLeft, scrollWidth = _a.scrollWidth, clientWidth = _a.clientWidth;
+    return [
+        scrollLeft,
+        scrollWidth,
+        clientWidth
+    ];
+};
+var elementCouldBeScrolled = function(axis, node) {
+    return axis === "v" ? elementCouldBeVScrolled(node) : elementCouldBeHScrolled(node);
+};
+var getScrollVariables = function(axis, node) {
+    return axis === "v" ? getVScrollVariables(node) : getHScrollVariables(node);
+};
+var getDirectionFactor = function(axis, direction) {
+    /**
+     * If the element's direction is rtl (right-to-left), then scrollLeft is 0 when the scrollbar is at its rightmost position,
+     * and then increasingly negative as you scroll towards the end of the content.
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollLeft
+     */ return axis === "h" && direction === "rtl" ? -1 : 1;
+};
+var handleScroll = function(axis, endTarget, event, sourceDelta, noOverscroll) {
+    var directionFactor = getDirectionFactor(axis, window.getComputedStyle(endTarget).direction);
+    var delta = directionFactor * sourceDelta;
+    // find scrollable target
+    var target = event.target;
+    var targetInLock = endTarget.contains(target);
+    var shouldCancelScroll = false;
+    var isDeltaPositive = delta > 0;
+    var availableScroll = 0;
+    var availableScrollTop = 0;
+    do {
+        var _a = getScrollVariables(axis, target), position = _a[0], scroll_1 = _a[1], capacity = _a[2];
+        var elementScroll = scroll_1 - capacity - directionFactor * position;
+        if (position || elementScroll) {
+            if (elementCouldBeScrolled(axis, target)) {
+                availableScroll += elementScroll;
+                availableScrollTop += position;
+            }
+        }
+        if (target instanceof ShadowRoot) target = target.host;
+        else target = target.parentNode;
+    }while (// portaled content
+    !targetInLock && target !== document.body || // self content
+    targetInLock && (endTarget.contains(target) || endTarget === target));
+    // handle epsilon around 0 (non standard zoom levels)
+    if (isDeltaPositive && (noOverscroll && Math.abs(availableScroll) < 1 || !noOverscroll && delta > availableScroll)) shouldCancelScroll = true;
+    else if (!isDeltaPositive && (noOverscroll && Math.abs(availableScrollTop) < 1 || !noOverscroll && -delta > availableScrollTop)) shouldCancelScroll = true;
+    return shouldCancelScroll;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9W8g1":[function(require,module,exports) {
+module.exports["button"] = `icLhlG_button`;
+module.exports["buttonsWrapper"] = `icLhlG_buttonsWrapper`;
+module.exports["nav-bar"] = `icLhlG_nav-bar`;
+module.exports["primaryBtn"] = `icLhlG_primaryBtn`;
+module.exports["secondaryBtn"] = `icLhlG_secondaryBtn`;
+module.exports["toDoListWrappers"] = `icLhlG_toDoListWrappers`;
+module.exports["todo-card"] = `icLhlG_todo-card`;
+module.exports["todo-wrapper"] = `icLhlG_todo-wrapper`;
 
 },{}]},["icZzK","1xC6H","8lqZg"], "8lqZg", "parcelRequire8c27")
 
