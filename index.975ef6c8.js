@@ -27768,7 +27768,7 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 function Button({ className = "", children, ...delegated }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-        className: `button ${className}`,
+        className: `${className} button`,
         ...delegated,
         children: children
     }, void 0, false, {
