@@ -75,7 +75,7 @@ function ToDoApp() {
     setTodos(newTodos);
   };
 
-  console.log(todos);
+  // console.log(todos);
 
   return (
     <>
