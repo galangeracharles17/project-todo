@@ -3,7 +3,6 @@ import styles from './DeleteTodo.module.scss';
 import Modal from '../Modal';
 import Button from '../Button';
 function DeleteTodo({ id, toggleDelete, handleDeleteTodo }) {
-  console.log(id);
   return (
     <Modal id={id} toggleDelete={toggleDelete}>
       <h2>Are you sure?</h2>
