@@ -5,6 +5,7 @@
   display: grid;
   place-content: center;
   inset: 0;
+  z-index: 1;
 }
 
 .backdrop {

@@ -9,7 +9,7 @@ function AddTodo({ handleAddTodo }) {
 
   React.useEffect(() => {
     inputRef.current.focus();
-  });
+  }, []);
 
   const handleForm = (event) => {
     event.preventDefault();
@@ -31,7 +31,7 @@ function AddTodo({ handleAddTodo }) {
       <input
         ref={inputRef}
         required
-        pattern='[A-Za-z0-9]+'
+        pattern='^(?!\s)[a-zA-Z0-9\s]+'
         title='Enter a valid word'
         type='text'
         value={todoValue}

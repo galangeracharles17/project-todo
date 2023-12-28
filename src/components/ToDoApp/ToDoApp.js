@@ -6,15 +6,26 @@ import UpdateTodo from '../UpdateTodo';
 import DeleteTodo from '../DeleteTodo/DeleteTodo';
 
 function ToDoApp() {
-  const [todos, setTodos] = React.useState([
-    {
-      id: crypto.randomUUID(),
-      todo: 'testToDo',
-      isCompleted: false,
-      isEdited: false,
-      isDeleted: false,
-    },
-  ]);
+  const [todos, setTodos] = React.useState(() => {
+    const storedValue = window.localStorage.getItem('todos');
+    const parsedValue = JSON.parse(storedValue);
+    return (
+      parsedValue || [
+        {
+          id: crypto.randomUUID(),
+          todo: 'Todo lists...',
+          isCompleted: false,
+          isEdited: false,
+          isDeleted: false,
+        },
+      ]
+    );
+  });
+
+  //Save on localStorage
+  React.useEffect(() => {
+    window.localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   const handleAddTodo = (todoItem) => {
     const AddTodo = {

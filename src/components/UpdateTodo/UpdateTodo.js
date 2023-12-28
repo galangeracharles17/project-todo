@@ -9,7 +9,7 @@ function UpdateTodo({ id, handleUpdateTodo, todo }) {
   // To focus whenever the input appears
   React.useEffect(() => {
     inputRef.current.focus();
-  });
+  }, []);
 
   const handleForm = (event) => {
     event.preventDefault();
@@ -22,7 +22,7 @@ function UpdateTodo({ id, handleUpdateTodo, todo }) {
   return (
     <form className={styles.updateForm} onSubmit={handleForm}>
       <input
-        pattern='[A-Za-z0-9]+'
+        pattern='^(?!\s)[a-zA-Z0-9\s]+'
         title='Enter a valid word'
         ref={inputRef}
         className={styles.inputUpdate}
