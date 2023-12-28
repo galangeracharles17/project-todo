@@ -2,7 +2,7 @@ import React from 'react';
 
 function Button({ className = '', children, ...delegated }) {
   return (
-    <button className={`button ${className}`} {...delegated}>
+    <button className={`${className} button`} {...delegated}>
       {children}
     </button>
   );
