@@ -28056,7 +28056,6 @@ var _modalDefault = parcelHelpers.interopDefault(_modal);
 var _button = require("../Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 function DeleteTodo({ id, toggleDelete, handleDeleteTodo }) {
-    console.log(id);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default), {
         id: id,
         toggleDelete: toggleDelete,
@@ -28065,14 +28064,14 @@ function DeleteTodo({ id, toggleDelete, handleDeleteTodo }) {
                 children: "Are you sure?"
             }, void 0, false, {
                 fileName: "src/components/DeleteTodo/DeleteTodo.js",
-                lineNumber: 9,
+                lineNumber: 8,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                 children: "You want to delete this item?"
             }, void 0, false, {
                 fileName: "src/components/DeleteTodo/DeleteTodo.js",
-                lineNumber: 10,
+                lineNumber: 9,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -28084,7 +28083,7 @@ function DeleteTodo({ id, toggleDelete, handleDeleteTodo }) {
                         children: "Yes"
                     }, void 0, false, {
                         fileName: "src/components/DeleteTodo/DeleteTodo.js",
-                        lineNumber: 12,
+                        lineNumber: 11,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
@@ -28093,19 +28092,19 @@ function DeleteTodo({ id, toggleDelete, handleDeleteTodo }) {
                         children: "No"
                     }, void 0, false, {
                         fileName: "src/components/DeleteTodo/DeleteTodo.js",
-                        lineNumber: 18,
+                        lineNumber: 17,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/DeleteTodo/DeleteTodo.js",
-                lineNumber: 11,
+                lineNumber: 10,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/DeleteTodo/DeleteTodo.js",
-        lineNumber: 8,
+        lineNumber: 7,
         columnNumber: 5
     }, this);
 }
