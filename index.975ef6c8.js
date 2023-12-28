@@ -27642,7 +27642,7 @@ $RefreshReg$(_c, "ToDoApp");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../AddTodo":"lz96Y","../TodoLists":"lfxxG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../UpdateTodo":"3AIRO","../DeleteTodo/DeleteTodo":"a09V6"}],"lz96Y":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../AddTodo":"lz96Y","../TodoLists":"lfxxG","../UpdateTodo":"3AIRO","../DeleteTodo/DeleteTodo":"a09V6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"lz96Y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _addTodoDefault.default));
@@ -27738,7 +27738,7 @@ $RefreshReg$(_c, "AddTodo");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./AddTodo.module.scss":"2kydj","../Button":"bNbfl","../../Assets/add-btn.png":"c2WKx"}],"2kydj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./AddTodo.module.scss":"2kydj","../Button":"bNbfl","../../Assets/add-btn.png":"c2WKx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"2kydj":[function(require,module,exports) {
 module.exports["addInput"] = `LDFIVW_addInput`;
 module.exports["button"] = `LDFIVW_button`;
 module.exports["nav-bar"] = `LDFIVW_nav-bar`;
@@ -27766,9 +27766,9 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-function Button({ className = "", children, ...delegated }) {
+function Button({ children, ...delegated }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-        className: `${className} button`,
+        className: "button",
         ...delegated,
         children: children
     }, void 0, false, {
@@ -27917,7 +27917,7 @@ $RefreshReg$(_c1, "IsTodoCompleted");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./TodoLists.module.scss":"1xxbg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../Button":"bNbfl","../../Assets/complete-btn.png":"duDfh","../../Assets/update-btn.png":"lTYiu","../../Assets/delete-btn.png":"22vE6"}],"1xxbg":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./TodoLists.module.scss":"1xxbg","../Button":"bNbfl","../../Assets/complete-btn.png":"duDfh","../../Assets/update-btn.png":"lTYiu","../../Assets/delete-btn.png":"22vE6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"1xxbg":[function(require,module,exports) {
 module.exports["button"] = `OJ7ypa_button`;
 module.exports["buttonsWrapper"] = `OJ7ypa_buttonsWrapper`;
 module.exports["completed"] = `OJ7ypa_completed`;
@@ -28118,7 +28118,17 @@ $RefreshReg$(_c, "DeleteTodo");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../Modal":"9Wwr6","../Button":"bNbfl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./DeleteTodo.module.scss":"9W8g1"}],"9Wwr6":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./DeleteTodo.module.scss":"9W8g1","../Modal":"9Wwr6","../Button":"bNbfl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9W8g1":[function(require,module,exports) {
+module.exports["button"] = `icLhlG_button`;
+module.exports["buttonsWrapper"] = `icLhlG_buttonsWrapper`;
+module.exports["nav-bar"] = `icLhlG_nav-bar`;
+module.exports["primaryBtn"] = `icLhlG_primaryBtn`;
+module.exports["secondaryBtn"] = `icLhlG_secondaryBtn`;
+module.exports["toDoListWrappers"] = `icLhlG_toDoListWrappers`;
+module.exports["todo-card"] = `icLhlG_todo-card`;
+module.exports["todo-wrapper"] = `icLhlG_todo-wrapper`;
+
+},{}],"9Wwr6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _modalDefault.default));
@@ -29636,16 +29646,6 @@ var handleScroll = function(axis, endTarget, event, sourceDelta, noOverscroll) {
     return shouldCancelScroll;
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9W8g1":[function(require,module,exports) {
-module.exports["button"] = `icLhlG_button`;
-module.exports["buttonsWrapper"] = `icLhlG_buttonsWrapper`;
-module.exports["nav-bar"] = `icLhlG_nav-bar`;
-module.exports["primaryBtn"] = `icLhlG_primaryBtn`;
-module.exports["secondaryBtn"] = `icLhlG_secondaryBtn`;
-module.exports["toDoListWrappers"] = `icLhlG_toDoListWrappers`;
-module.exports["todo-card"] = `icLhlG_todo-card`;
-module.exports["todo-wrapper"] = `icLhlG_todo-wrapper`;
-
-},{}]},["icZzK","1xC6H","8lqZg"], "8lqZg", "parcelRequire8c27")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["icZzK","1xC6H","8lqZg"], "8lqZg", "parcelRequire8c27")
 
 //# sourceMappingURL=index.975ef6c8.js.map
