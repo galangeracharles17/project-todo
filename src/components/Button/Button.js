@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Button({ className = '', children, ...delegated }) {
+function Button({ children, ...delegated }) {
   return (
-    <button className={`${className} button`} {...delegated}>
+    <button className='button' {...delegated}>
       {children}
     </button>
   );
