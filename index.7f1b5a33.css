@@ -841,6 +841,7 @@ body {
 }
 
 .i0np6q_modalWrapper {
+  z-index: 1;
   place-content: center;
   display: grid;
   position: fixed;

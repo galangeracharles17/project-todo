@@ -27497,14 +27497,24 @@ var _deleteTodoDefault = parcelHelpers.interopDefault(_deleteTodo);
 var _s = $RefreshSig$();
 function ToDoApp() {
     _s();
-    const [todos, setTodos] = (0, _reactDefault.default).useState([
-        {
-            id: crypto.randomUUID(),
-            todo: "testToDo",
-            isCompleted: false,
-            isEdited: false,
-            isDeleted: false
-        }
+    const [todos, setTodos] = (0, _reactDefault.default).useState(()=>{
+        const storedValue = window.localStorage.getItem("todos");
+        const parsedValue = JSON.parse(storedValue);
+        return parsedValue || [
+            {
+                id: crypto.randomUUID(),
+                todo: "Todo lists...",
+                isCompleted: false,
+                isEdited: false,
+                isDeleted: false
+            }
+        ];
+    });
+    //Save on localStorage
+    (0, _reactDefault.default).useEffect(()=>{
+        window.localStorage.setItem("todos", JSON.stringify(todos));
+    }, [
+        todos
     ]);
     const handleAddTodo = (todoItem)=>{
         const AddTodo = {
@@ -27566,14 +27576,14 @@ function ToDoApp() {
                     children: "Welcome! Todo"
                 }, void 0, false, {
                     fileName: "src/components/ToDoApp/ToDoApp.js",
-                    lineNumber: 83,
+                    lineNumber: 94,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addTodoDefault.default), {
                     handleAddTodo: handleAddTodo
                 }, void 0, false, {
                     fileName: "src/components/ToDoApp/ToDoApp.js",
-                    lineNumber: 84,
+                    lineNumber: 95,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27590,7 +27600,7 @@ function ToDoApp() {
                                     toggleDelete: toggleDelete
                                 }, void 0, false, {
                                     fileName: "src/components/ToDoApp/ToDoApp.js",
-                                    lineNumber: 90,
+                                    lineNumber: 101,
                                     columnNumber: 19
                                 }, this),
                                 isEdited && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateTodoDefault.default), {
@@ -27599,7 +27609,7 @@ function ToDoApp() {
                                     todo: todo
                                 }, void 0, false, {
                                     fileName: "src/components/ToDoApp/ToDoApp.js",
-                                    lineNumber: 100,
+                                    lineNumber: 111,
                                     columnNumber: 19
                                 }, this),
                                 isDeleted && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _deleteTodoDefault.default), {
@@ -27608,30 +27618,30 @@ function ToDoApp() {
                                     handleDeleteTodo: handleDeleteTodo
                                 }, void 0, false, {
                                     fileName: "src/components/ToDoApp/ToDoApp.js",
-                                    lineNumber: 107,
+                                    lineNumber: 118,
                                     columnNumber: 19
                                 }, this)
                             ]
                         }, id, true, {
                             fileName: "src/components/ToDoApp/ToDoApp.js",
-                            lineNumber: 88,
+                            lineNumber: 99,
                             columnNumber: 15
                         }, this);
                     })
                 }, void 0, false, {
                     fileName: "src/components/ToDoApp/ToDoApp.js",
-                    lineNumber: 85,
+                    lineNumber: 96,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/ToDoApp/ToDoApp.js",
-            lineNumber: 82,
+            lineNumber: 93,
             columnNumber: 7
         }, this)
     }, void 0, false);
 }
-_s(ToDoApp, "KH0xkNQjBkORFjmD8p3v1Ap6WI0=");
+_s(ToDoApp, "ZJ1gArXwl7WJJtwZj+L4CNVPywg=");
 _c = ToDoApp;
 exports.default = ToDoApp;
 var _c;
@@ -27675,7 +27685,7 @@ function AddTodo({ handleAddTodo }) {
     const inputRef = (0, _reactDefault.default).useRef();
     (0, _reactDefault.default).useEffect(()=>{
         inputRef.current.focus();
-    });
+    }, []);
     const handleForm = (event)=>{
         event.preventDefault();
         handleAddTodo(todoValue);
@@ -27693,7 +27703,7 @@ function AddTodo({ handleAddTodo }) {
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                 ref: inputRef,
                 required: true,
-                pattern: "[A-Za-z0-9]+",
+                pattern: "^(?!\\s)[a-zA-Z0-9\\s]+",
                 title: "Enter a valid word",
                 type: "text",
                 value: todoValue,
@@ -27969,7 +27979,7 @@ function UpdateTodo({ id, handleUpdateTodo, todo }) {
     // To focus whenever the input appears
     (0, _reactDefault.default).useEffect(()=>{
         inputRef.current.focus();
-    });
+    }, []);
     const handleForm = (event)=>{
         event.preventDefault();
         const newValue = value ? value : todo;
@@ -27980,7 +27990,7 @@ function UpdateTodo({ id, handleUpdateTodo, todo }) {
         onSubmit: handleForm,
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                pattern: "[A-Za-z0-9]+",
+                pattern: "^(?!\\s)[a-zA-Z0-9\\s]+",
                 title: "Enter a valid word",
                 ref: inputRef,
                 className: (0, _updateTodoModuleScssDefault.default).inputUpdate,
