@@ -31,6 +31,8 @@ function AddTodo({ handleAddTodo }) {
       <input
         ref={inputRef}
         required
+        pattern='[A-Za-z0-9]+'
+        title='Enter a valid word'
         type='text'
         value={todoValue}
         className={styles.addInput}

@@ -22,6 +22,8 @@ function UpdateTodo({ id, handleUpdateTodo, todo }) {
   return (
     <form className={styles.updateForm} onSubmit={handleForm}>
       <input
+        pattern='[A-Za-z0-9]+'
+        title='Enter a valid word'
         ref={inputRef}
         className={styles.inputUpdate}
         type='text'

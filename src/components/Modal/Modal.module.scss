@@ -1,0 +1,36 @@
+@use '../../styles.scss';
+
+.modalWrapper {
+  position: fixed;
+  display: grid;
+  place-content: center;
+  inset: 0;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  opacity: 0.2;
+}
+
+.dialog {
+  color: styles.$secondary-color;
+  position: relative;
+  width: 400px;
+  height: 200px;
+  background-color: styles.$primary-color;
+  z-index: 1;
+  border-radius: 32px;
+  padding: styles.$card-padding;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media only screen and (max-width: 468px) {
+    width: min(300px);
+    padding: styles.$card-padding-small;
+  }
+}

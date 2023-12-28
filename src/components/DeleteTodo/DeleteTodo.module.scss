@@ -1,0 +1,22 @@
+@use '../../styles.scss';
+
+.buttonsWrapper {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.primaryBtn {
+  background-color: styles.$accent-color2;
+  color: white;
+  width: 50px;
+  border-radius: 8px;
+}
+
+.secondaryBtn {
+  width: 50px;
+  border: 1px solid styles.$secondary-color;
+  border-radius: 8px;
+}

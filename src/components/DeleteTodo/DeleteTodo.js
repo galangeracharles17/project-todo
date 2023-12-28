@@ -1,21 +1,28 @@
 import React from 'react';
-
-import DeleteIcon from '../../Assets/delete-btn.png';
-
+import styles from './DeleteTodo.module.scss';
+import Modal from '../Modal';
 import Button from '../Button';
-
-function DeleteTodo() {
-  const [isDelete, setIsDelete] = React.useState(false);
-
-  const handleDelete = React.useCallback(() => {
-    setIsDelete((currentValue) => !currentValue);
-  }, []);
-  console.log(isDelete);
-
+function DeleteTodo({ id, toggleDelete, handleDeleteTodo }) {
+  console.log(id);
   return (
-    <Button onClick={handleDelete}>
-      <img src={DeleteIcon} alt='delete button' />
-    </Button>
+    <Modal id={id} toggleDelete={toggleDelete}>
+      <h2>Are you sure?</h2>
+      <p>You want to delete this item?</p>
+      <div className={styles.buttonsWrapper}>
+        <Button
+          className={styles.primaryBtn}
+          onClick={() => handleDeleteTodo(id)}
+        >
+          Yes
+        </Button>
+        <Button
+          className={styles.secondaryBtn}
+          onClick={() => toggleDelete(id)}
+        >
+          No
+        </Button>
+      </div>
+    </Modal>
   );
 }
 

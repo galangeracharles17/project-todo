@@ -11,15 +11,15 @@ import DeleteIcon from '../../Assets/delete-btn.png';
 function TodoLists({
   todo,
   id,
-  isComplete,
+  isCompleted,
   handleCompleteTodo,
   toggleUpdate,
-  handleDeleteTodo,
+  toggleDelete,
 }) {
   return (
     <>
       <div className={styles.todoLists}>
-        <IsTodoCompleted isComplete={isComplete}>{todo}</IsTodoCompleted>
+        <IsTodoCompleted isCompleted={isCompleted}>{todo}</IsTodoCompleted>
         <div className={styles.buttonsWrapper}>
           <Button onClick={() => handleCompleteTodo(id)}>
             <img src={CompleteIcon} alt='completed button' />
@@ -27,7 +27,7 @@ function TodoLists({
           <Button onClick={() => toggleUpdate(id)}>
             <img src={UpdateIcon} alt='completed button' />
           </Button>
-          <Button onClick={() => handleDeleteTodo(id)}>
+          <Button onClick={() => toggleDelete(id)}>
             <img src={DeleteIcon} alt='completed button' />
           </Button>
         </div>
@@ -36,9 +36,9 @@ function TodoLists({
   );
 }
 
-function IsTodoCompleted({ isComplete, children }) {
+function IsTodoCompleted({ isCompleted, children }) {
   return (
-    <p className={`${styles.todo} ${isComplete ? styles.completed : ''}`}>
+    <p className={`${styles.todo} ${isCompleted ? styles.completed : ''}`}>
       {children}
     </p>
   );
