@@ -1,12 +1,12 @@
 {
-  "homepage": "https://galangeracharles17.github.io/project-Todo",
+  "homepage": "https://galangeracharles17.github.io/project-todo",
   "name": "project-todo",
   "version": "1.0.0",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "dev": "parcel public/index.html",
-    "build": "parcel build public/index.html --public-url https://galangeracharles17.github.io/project-Todo/",
+    "build": "parcel build public/index.html --public-url https://galangeracharles17.github.io/project-todo/",
     "new-component": "new-component"
   },
   "author": "Charles Galangera",
